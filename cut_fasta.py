@@ -1,3 +1,4 @@
+import argparse
 import os
 from Bio import AlignIO
 
@@ -74,15 +75,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
                         help="Input file")
-    parser.add_argument("-min", "--min_length", type=int,
-                        help="Minimal length of sequence.\
-                        Sequences shorter than min length will not be included in the final dataset")
-    parser.add_argument("-max", "--max_length", type=int,
-                        help="Maximal length of sequence. \
-                        Sequences longer than max length will not be included in the final dataset")
     args = parser.parse_args()
 
-    if not args.input or not args.min or not args.max:
-        print("Please, use \"python gp_parser.py --help\"")
+    if not args.input_file:
+        print("Please, use \"python cut_fasta.py --help\"")
     else:
-        parse_gb(args.input, args.min, args.max)
+        parse_gb(args.input_file)

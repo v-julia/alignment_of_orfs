@@ -156,7 +156,7 @@ if __name__ == "__main__":
                             
     args = parser.parse_args()
 
-    if not args.input_file or not args.min_distance or not args.max_distance:
+    if not len(sys.argv) == 4:
         print('Please use "python remove_similar --help" for help ')
 
     else:

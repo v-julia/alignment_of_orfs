@@ -202,7 +202,7 @@ if __name__ == "__main__":
                         Sequences longer than max length will not be included in the final dataset")
     args = parser.parse_args()
 
-    if not args.input_file or not args.min_length or not args.max_length:
+    if not len(sys.argv) == 4:
         print("Please, use \"python parser_gb.py --help\"")
     else:
         parse_gb(args.input_file, args.min_length, args.max_length)

@@ -1,9 +1,11 @@
+import argparse
 import os
 import sys
 import subprocess
 import pandas as pd
 from Bio import SeqIO
 from Bio import AlignIO
+
 
 #performs standalone blast of sequences from input_file against reference sequence
 #check whether sequence from input_file overlaps with region [rstart,rend] in reference sequences
@@ -94,3 +96,24 @@ def check_overlap(col):
     if inside or left or right or larger:
         col['overlap']  = 1
     return col
+
+find_target_region(input_file, reference, rstart, rend, path_to_blast)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-input", "--input_file", type=str,
+                        help="Input file")
+    parser.add_argument("-ref", "--reference", type=int,
+                        help="File with reference sequence in fasta-format")
+    parser.add_argument("-s", "--start", type=int,
+                        help="Start position of region of interest in reference sequence")
+    parser.add_argument("-e", "--end", type=int,
+                        help="End position of region of interest in reference sequence")
+    parser.add_argument("-path_blast", "--path_blast", type=int,
+                        help="Path to blast")
+    args = parser.parse_args()
+
+    if not len(sys.argv) == 6:
+        print("Please, use \"python parser_gb.py --help\"")
+    else:
+        parse_gb(args.input_file, args.min_length, args.max_length)
