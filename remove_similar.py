@@ -1,5 +1,6 @@
 import argparse
 import itertools
+import sys
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 
