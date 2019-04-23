@@ -2,6 +2,7 @@ import argparse
 import csv
 import os
 import re
+import sys
 from textwrap import wrap
 
 #For each entry in GenBank file retrieves nucleotide sequence, collection date and country 
