@@ -1,6 +1,7 @@
 import argparse
 import matplotlib.pyplot as plt
 import random
+import sys
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 
