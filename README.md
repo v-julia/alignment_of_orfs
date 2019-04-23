@@ -2,23 +2,24 @@
 
 This folder contains scripts for handling sets of biological sequences and generating alignments.
 
-1. *GenAlignment.py* is a program to generate alignment of genomic region of interest in fasta-format with \
+### *GenAlignment.py* 
+Generates alignment of genomic region of interest in fasta-format with 
 annotated sequence names (GenbankID_strain_isolate_country_collectionYear) from file with sequences in GenBank-format.
 
 The input parameters should be defined in *config.txt* file located in the same directory as script:
-*path to input file with fasta sequences in GenBank-format
-*path to file with reference sequence
-*positions of region of interest in reference sequence
-*maximal and minimal length to retrieve from GenBank file
-*method of removing some sequences from the dataset:
-    *if p-distance between two sequences is beyond defined cut-off the one with higher serial order will be removed
-    *set of sequences is divided into groups based on the first 5 characters in GenBank ID, then if the size of groups \
+* path to input file with fasta sequences in GenBank-format
+* path to file with reference sequence
+* positions of region of interest in reference sequence
+* maximal and minimal length to retrieve from GenBank file
+* method of removing some sequences from the dataset:
+    * if p-distance between two sequences is beyond defined cut-off the one with higher serial order will be removed
+    * set of sequences is divided into groups based on the first 5 characters in GenBank ID, then if the size of groups \
     exceeds m k% of randomly chosen sequences will be removed
-*paths to mafft and blastn programs
+* paths to mafft and blastn programs
 
 File *country_map.csv* with countries' abbreviations located in the same directory as script can be used to replace countries names with abbreviations in sequences names.
 
-## Usage
+#### Usage
 
 ```
 python GenAlignment.py
@@ -26,14 +27,16 @@ python GenAlignment.py
 
 *GenAlignment.py* uses several modules which can be used as independent scripts.
 
-2. *parser_gb.py* converts file with sequences in GenBank-format to fasta-format 
- with sequence names in the following format: GenbankAccessionNumber_strain_isolate_country_collectionYear. 
- Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
- Saves output-file in the directory of input-file.
+### *parser_gb.py* 
+Converts file with sequences in GenBank-format to fasta-format with sequence names in the following format: GenbankAccessionNumber_strain_isolate_country_collectionYear. 
+
+Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
+
+Saves output-file in the directory of input-file.
  
 If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full contries names.
 
-## Usage
+#### Usage
 
 ```
 parser_gb.py [-h] [-input INPUT_FILE] [-min MIN_LENGTH] [-max MAX_LENGTH]
@@ -49,13 +52,14 @@ parser_gb.py [-h] [-input INPUT_FILE] [-min MIN_LENGTH] [-max MAX_LENGTH]
 
 ```
 
-3. *remove_similar.py*
+### *remove_similar.py*
 
 Calculates p-distances between sequences pairs in loop, if p-distance < min_distance and p-distance > max_distance 
 removes the sequence with higher serial number. 
+
 Saves output-file with reduced sequence set in the directory of input-file.
 
-## Usage
+#### Usage
 
 ```
 remove_similar.py [-h] [-input INPUT_FILE] [-min MIN_DISTANCE] [-max MAX_DISTANCE]
@@ -73,14 +77,15 @@ remove_similar.py [-h] [-input INPUT_FILE] [-min MIN_DISTANCE] [-max MAX_DISTANC
                         higher serial number will be removed from the dataset
 ```
 
-4. *remove_random.py*
+### *remove_random.py*
 
 Divides all sequences into groups by the first 5 characters in GenBank accession number. 
 Plots distribution of groups sizes. Randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
+
 Saves the resulting sequences in fasta-format in the directory of input file
 
 
-## Usage
+#### Usage
 ```
 remove_random.py [-h] [-input INPUT_FILE]
 
@@ -89,14 +94,16 @@ remove_random.py [-h] [-input INPUT_FILE]
 ```
 
 
-## Usage
+### *cut_fasta.py*
 
 Finds positions without gaps in reference sequence (the first in alignment), 
 removes the columns with gaps in reference sequence from alignment. Reference sequences is supposed to be the first in input-file. 
+
 Saves the resulting alignment in fasta-format in the directory of input file.
 
 
 
+#### Usage
 ```
 cut_fasta.py [-h] [-input INPUT_FILE]
 
