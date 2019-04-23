@@ -113,7 +113,7 @@ if __name__ == "__main__":
                         help="Path to blast")
     args = parser.parse_args()
 
-    if not len(sys.argv) == 6:
+    if not len(sys.argv) == 11:
         print("Please, use \"python parser_gb.py --help\"")
     else:
         parse_gb(args.input_file, args.min_length, args.max_length)

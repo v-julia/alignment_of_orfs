@@ -157,7 +157,8 @@ if __name__ == "__main__":
                             
     args = parser.parse_args()
 
-    if not len(sys.argv) == 4:
+
+    if not len(sys.argv) == 7:
         print('Please use "python remove_similar --help" for help ')
 
     else:
