@@ -18,9 +18,9 @@ def parse_gb(input_file, min_length, max_length):
 
     #File with countries/cities/other features and their abbreviations
     #Should be located at the same directory as script
-    COUNTRY_MAP_FILE = "country_map.csv"
-    FEATURE_MAP_FILE = "feature_map.csv" #not developed yet
-    CITY_MAP_FILE = "city_map.csv"
+    COUNTRY_MAP_FILE = os.path.join(sys.path[0],"country_map.csv")
+    FEATURE_MAP_FILE = os.path.join(sys.path[0],"feature_map.csv") #not developed yet
+    CITY_MAP_FILE = os.path.join(sys.path[0],"city_map.csv")
 
     #name of output file
 
@@ -47,7 +47,7 @@ def parse_gb(input_file, min_length, max_length):
     features = re.compile(r"^\s+\/([a-z_]+)=\"([^\"]+)\"$") #qualifiers from FEATURE source field
 
     #origin = re.compile(r"\s+\d+\s+([a-z ]+)$")
-    origin = re.compile(r"\s+\d+\s+([a,t,g,c ]+)$") #origin field (contains na sequence)
+    origin = re.compile(r"\s+\d+\s+([atgcnrykmswbdhvu\s]+)$") #origin field (contains nt sequence)
     end_line = re.compile(r"^//\s+$") #end line of entry
     clean_from = re.compile(r"[:;.,/\s]")
     clean_to = "-"
@@ -75,65 +75,65 @@ def parse_gb(input_file, min_length, max_length):
         print('{filename}: No such file or directory'.format(filename=input_file))
         return
 
-    try:
-        with open(input_file, "r") as in_f:
-            for line in in_f:
 
-                m = accession.match(line) #finds ACCESSION field using RegExp
+    with open(input_file, "r") as in_f:
+        for line in in_f:
+
+            m = accession.match(line) #finds ACCESSION field using RegExp
+            if (m):
+                test_accession = m.group(1)
+                
+            #check whether /source has started or has ended
+            if re.match(r"^\s{5}[a-zA-z_]+[\s0-9<>\.]+", line) or re.match(r"^[a-zA-z]+", line):
+                s = 0 # we are outside source field
+            if re.match(r"^\s+source[0-9\.\s]+", line):
+                s = 1 #inside source field
+    
+            if s == 1:
+                m = features.match(line) #finds all features in field 'FEATURES source' using RegExp
                 if (m):
-                    test_accession = m.group(1)
+                    test_features[m.group(1)] = m.group(2)
 
-                #check whether /source has started or has ended
-                if re.match(r"^\s{5}[a-zA-z_]+[\s0-9<>\.]+", line) or re.match(r"^[a-zA-z]+", line):
-                    s = 0 # we are outside source field
-                if re.match(r"^\s+source[0-9\.\s]+", line):
-                    s = 1 #inside source field
-        
-                if s == 1:
-                    m = features.match(line) #finds all features in field 'FEATURES source' using RegExp
-                    if (m):
-                        test_features[m.group(1)] = m.group(2)
-
-                m = origin.match(line) #ORIGIN field  (contains na sequence)
-                if(m):
-                    test_origin += re.sub("\s+","",m.group(1))
-
-                if(end_line.search(line)): #the end of entry
-
-                    if ("collection_date" or "collected_by") in test_features: 
-                        test_features["collection_date"] = check_year(test_features["collection_date"]) #reformates collection date
-
-                    if "country" in test_features:
-                        test_features["country"] = map_feature(test_features["country"], country_map) #replaces country by its abbreviation
+            m = origin.match(line) #ORIGIN field  (contains na sequence)
+            if(m):
+                test_origin += re.sub("\s+","",m.group(1))
 
 
-                    #for k in ["strain", "organism"]:
-                        #if k in test_features: 
-                            #test_features[k] = map_feature(test_features[k], feature_map)
+            if(end_line.search(line)): #the end of entry
+
+                if ("collection_date" or "collected_by") in test_features: 
+                    test_features["collection_date"] = check_year(test_features["collection_date"]) #reformates collection date
+
+                if "country" in test_features:
+                    test_features["country"] = map_feature(test_features["country"], country_map) #replaces country by its abbreviation
+
+
+                #for k in ["strain", "organism"]:
+                    #if k in test_features: 
+                        #test_features[k] = map_feature(test_features[k], feature_map)
+            
+            
+                if ("collection_date" or "collected_by") not in test_features: #adds entries without collection date to test_nodate list
+                    tests_nodate.append({
+                        "accession" : test_accession, 
+                        "features" : test_features,
+                        "origin" : test_origin
+                        })
                 
-                
-                    if ("collection_date" or "collected_by") not in test_features: #adds entries without collection date to test_nodate list
-                        tests_nodate.append({
-                            "accession" : test_accession, 
-                            "features" : test_features,
-                            "origin" : test_origin
-                            })
-                    
-                    else:
-                        tests.append({
-                            "accession" : test_accession, 
-                            "features" : test_features,
-                            "origin" : test_origin
-                            })
+                else:
+                    tests.append({
+                        "accession" : test_accession, 
+                        "features" : test_features,
+                        "origin" : test_origin
+                        })
 
-                    #resets variables
-                    test_accession = "" 
-                    test_features = {}
-                    test_origin = ""
-                
-        in_f.close()
-    except:
-        print('Error: can\'t read genbank file')
+                #resets variables
+                test_accession = "" 
+                test_features = {}
+                test_origin = ""
+            
+    in_f.close()
+
 
     #adds entries without collection date to the end of tests list
     for ent in tests_nodate:
@@ -144,9 +144,9 @@ def parse_gb(input_file, min_length, max_length):
     for test in tests:
         aaccession, f, origin = test["accession"], test["features"], test["origin"]
         #print(aaccession, f, origin)
-
+        #print(aaccession)
         if not (MIN_ORIGIN_SIZE < len(origin) < MAX_ORIGIN_SIZE):
-            # print(aaccession, len(origin))
+            print(aaccession, len(origin))
             continue
 
         #new name of entry = GB accession number + country + year

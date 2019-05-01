@@ -64,7 +64,7 @@ def cut_fasta(input_file):
  
     alignment_new =  AlignIO.MultipleSeqAlignment(alignment_l)
     
-    print('Number od sequences in alignment {}'.format(len(alignment_new)))
+    print('Number of sequences in alignment {}'.format(len(alignment_new)))
     #print( "Alignment length {0}".format(alignment_new.get_alignment_length()))
 
     out_file = input_file.replace('.fasta', '_cut.fasta')

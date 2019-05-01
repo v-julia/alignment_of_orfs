@@ -146,11 +146,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
                         help="Input file in fasta format")
-    parser.add_argument("-min", "--min_distance", type=int,
+    parser.add_argument("-min", "--min_distance", type=float,
                         help="Minimal pairwise distance between sequences.\
                         If p-distance is lower than min_distance sequence \
                         with higher serial number will be removed from the dataset")
-    parser.add_argument("-max", "--max_distance", type=int,
+    parser.add_argument("-max", "--max_distance", type=float,
                         help="Maximal pairwise distance between sequences.\
                         If p-distance is higher than max_distance sequence \
                         with higher serial number will be removed from the dataset")
@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
 
     if not len(sys.argv) == 7:
-        print('Please use "python remove_similar --help" for help ')
+        print('Please use "python remove_similar.py --help" for help ')
 
     else:
         remove_sim_seq(args.input_file, args.min_distance, args.max_distance)

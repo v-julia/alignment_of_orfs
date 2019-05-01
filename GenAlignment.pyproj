@@ -4,13 +4,17 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8478f95f-a852-4b03-8b94-e96b5f026684</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>GenAlignment.py</StartupFile>
+    <StartupFile>parser_gb.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>GenAlignment</Name>
     <RootNamespace>GenAlignment</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>-input D:\MY_FILES\DATA\Lukashev\RNAvirEvolution\Caliciviruses\Sapovirus\test.gb -min 7000 -max 10000</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,12 +32,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GenAlignment.py" />
-    <Compile Include="module1.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="module2.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="parser_gb.py">
       <SubType>Code</SubType>
     </Compile>

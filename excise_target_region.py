@@ -97,7 +97,7 @@ def check_overlap(col):
         col['overlap']  = 1
     return col
 
-find_target_region(input_file, reference, rstart, rend, path_to_blast)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -116,4 +116,4 @@ if __name__ == "__main__":
     if not len(sys.argv) == 11:
         print("Please, use \"python parser_gb.py --help\"")
     else:
-        parse_gb(args.input_file, args.min_length, args.max_length)
+        find_target_region(args.input_file, args.reference, args.start, args.end, args.path_to_blast)

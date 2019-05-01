@@ -1,3 +1,4 @@
+import os
 from os import system
 from pathlib import Path
 import sys
@@ -25,47 +26,46 @@ from cut_fasta import cut_fasta
 #6)cuts alignment by reference sequence, saves alignment to {input_fname}_exc_wref_random_m_k_cut.fasta
 
 # Extracting parameters from config.txt
-try:
-    print('Reading config.txt ...')
-    config_file = open('config.txt', 'r')
-    for line in config_file:
-        if line[0] == '#' or line == '\n':
-            continue
-        else:
-            list_par = line.split('=')
-            feature = list_par[0].strip(' ')
-            value = list_par[1].strip(' ').strip('\n').strip('\'')
-            if feature == 'input_file':
-                input_file = '/'.join(value.split('\\')) #input file name
-            if feature == 'min_length':
-                min_length = int(value) #milinal length of sequence
-            if feature == 'max_length':
-                max_length = int(value) #maximal length of sequence
-            if feature == 'reference':
-                ref_fasta = '/'.join(value.split('\\')) #file with reference sequences
-            if feature == "positions":
-                rstart=int(value.split(",")[0]) #start of target region in reference sequence
-                rend = int(value.split(",")[1]) #end of target region in reference sequence
-            if feature == 'translation':
-                translation = int(value) #amino-acid based alignment or not, in progress
-            if feature == 'method':
-                method = value #method of removing redundant sequences
-                if (method != 'random' and method != 'similar'):
-                    print('Incorrect method')
-            if feature == 'cutoff':
-                cutoff = float(value) #minimal difference between 2 sequences if method=similar
-            if feature == 'cutoff1':
-                cutoff1 = float(value) #maximal difference between 2 sequences if method=similar
-            if feature == 'path_to_blast': 
-                path_to_blast = value #path to blast program
-            if feature == 's':
-                s = int(value) #intermediate files will be saved s==1
-            if feature == 'path_to_mafft':
-                path_to_mafft = value
-    config_file.close()
-    print('Done')
-except:
-    print('Error: can\'t read input file')
+
+print('Reading config.txt ...')
+
+config_file = open(os.path.join(sys.path[0],'config.txt'), 'r') #opens config.txt located in the same dir as script
+for line in config_file:
+    if line[0] == '#' or line == '\n':
+        continue
+    else:
+        list_par = line.split('=')
+        feature = list_par[0].strip(' ')
+        value = list_par[1].strip(' ').strip('\n').strip('\'')
+        if feature == 'input_file':
+            input_file = '/'.join(value.split('\\')) #input file name
+        if feature == 'min_length':
+            min_length = int(value) #milinal length of sequence
+        if feature == 'max_length':
+            max_length = int(value) #maximal length of sequence
+        if feature == 'reference':
+            ref_fasta = '/'.join(value.split('\\')) #file with reference sequences
+        if feature == "positions":
+            rstart=int(value.split(",")[0]) #start of target region in reference sequence
+            rend = int(value.split(",")[1]) #end of target region in reference sequence
+        if feature == 'translation':
+            translation = int(value) #amino-acid based alignment or not, in progress
+        if feature == 'method':
+            method = value #method of removing redundant sequences
+            if (method != 'random' and method != 'similar'):
+                print('Incorrect method')
+        if feature == 'cutoff':
+            cutoff = float(value) #minimal difference between 2 sequences if method=similar
+        if feature == 'cutoff1':
+            cutoff1 = float(value) #maximal difference between 2 sequences if method=similar
+        if feature == 'path_to_blast': 
+            path_to_blast = value #path to blast program
+        if feature == 's':
+            s = int(value) #intermediate files will be saved s==1
+        if feature == 'path_to_mafft':
+            path_to_mafft = value
+config_file.close()
+print('Done')
 
 
 # 1) fasta from gb_file
