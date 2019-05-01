@@ -111,3 +111,10 @@ cut_fasta.py [-h] [-input INPUT_FILE]
                         Path to input alignment in fasta-format
 ```
 
+## Requirements
+
+* python 3
+* Biopython
+* numpy
+* matplotlib
+
