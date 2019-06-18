@@ -39,7 +39,7 @@ If *country_map.csv* with countries' abbreviations is in the local directory, se
 #### Usage
 
 ```
-parser_gb.py [-h] [-input INPUT_FILE] [-min MIN_LENGTH] [-max MAX_LENGTH]
+parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH
 
   -input <str>          Path to input-file in GenBank-format
                         
@@ -62,7 +62,7 @@ Saves output-file with reduced sequence set in the directory of input-file.
 #### Usage
 
 ```
-remove_similar.py [-h] [-input INPUT_FILE] [-min MIN_DISTANCE] [-max MAX_DISTANCE]
+remove_similar.py [-h] -input INPUT_FILE -min MIN_DISTANCE -max MAX_DISTANCE
 
 
   -input INPUT_FILE, --input_file INPUT_FILE
@@ -87,7 +87,7 @@ Saves the resulting sequences in fasta-format in the directory of input file
 
 #### Usage
 ```
-remove_random.py [-h] [-input INPUT_FILE]
+remove_random.py [-h] -input INPUT_FILE
 
   -input INPUT_FILE, --input_file INPUT_FILE
                         Path to input file in fasta-format
@@ -105,7 +105,7 @@ Saves the resulting alignment in fasta-format in the directory of input file.
 
 #### Usage
 ```
-cut_fasta.py [-h] [-input INPUT_FILE]
+cut_fasta.py [-h] -input INPUT_FILE
 
   -input INPUT_FILE, --input_file INPUT_FILE
                         Path to input alignment in fasta-format
