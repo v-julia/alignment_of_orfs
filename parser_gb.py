@@ -5,6 +5,7 @@ import re
 import sys
 from textwrap import wrap
 
+
 #For each entry in GenBank file retrieves nucleotide sequence, collection date and country 
 #Generates file with sequences in fasta format, 
 #sequences' names are in the following format: GenbankAccessionNumber_country_collectionYear
@@ -133,7 +134,6 @@ def parse_gb(input_file, min_length, max_length):
                 test_origin = ""
             
     in_f.close()
-
 
     #adds entries without collection date to the end of tests list
     for ent in tests_nodate:
