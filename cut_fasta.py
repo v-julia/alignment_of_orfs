@@ -58,9 +58,10 @@ def cut_fasta(input_file):
     alignment_l = []
     for rec in alignment1:
         count_gap = rec.seq.count('-')
-        #print(count_gap/len(rec.seq))
+        
         if count_gap/len(rec.seq)<0.10:
             alignment_l.append(rec)
+
  
     alignment_new =  AlignIO.MultipleSeqAlignment(alignment_l)
     
@@ -74,10 +75,8 @@ def cut_fasta(input_file):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file")
+                        help="Input file", required=True)
     args = parser.parse_args()
 
-    if not args.input_file:
-        print("Please, use \"python cut_fasta.py --help\"")
-    else:
-        parse_gb(args.input_file)
+
+    cut_fasta(args.input_file)

@@ -102,18 +102,15 @@ def check_overlap(col):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file")
-    parser.add_argument("-ref", "--reference", type=int,
-                        help="File with reference sequence in fasta-format")
+                        help="Input file", required = True)
+    parser.add_argument("-ref", "--reference", type=str,
+                        help="File with reference sequence in fasta-format", required = True)
     parser.add_argument("-s", "--start", type=int,
-                        help="Start position of region of interest in reference sequence")
+                        help="Start position of region of interest in reference sequence", required = True)
     parser.add_argument("-e", "--end", type=int,
-                        help="End position of region of interest in reference sequence")
-    parser.add_argument("-path_blast", "--path_blast", type=int,
-                        help="Path to blast")
+                        help="End position of region of interest in reference sequence", required = True)
+    parser.add_argument("-path_blast", "--path_blast", type=str,
+                        help="Path to blast", required = True)
     args = parser.parse_args()
 
-    if not len(sys.argv) == 11:
-        print("Please, use \"python parser_gb.py --help\"")
-    else:
-        find_target_region(args.input_file, args.reference, args.start, args.end, args.path_to_blast)
+    find_target_region(args.input_file, args.reference, args.start, args.end, args.path_blast)

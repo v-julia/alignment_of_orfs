@@ -88,12 +88,8 @@ def remove_random(fasta):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file in fasta format")
+                        help="Input file in fasta format", required=True)
 
     args = parser.parse_args()
 
-    if not args.input_file:
-        print('Please use "python remove_random.py --help" for help ')
-
-    else:
-        remove_random(args.input_file)
+    remove_random(args.input_file)
