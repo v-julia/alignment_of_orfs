@@ -1,24 +1,24 @@
 #path to input genbank file with virus sequences
-input_file = 'D:/MY_FILES/DATA/Lukashev/Astroviruses/MAstV-1/HAstV-1/test/HAst-1_all.gb.txt'
+input_file = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/serotypes_VP1/EV71_VP1/EV71_VP1.gb'
 
 #path to fasta-file with reference sequence
-reference = 'D:/MY_FILES/DATA/Lukashev/Astroviruses/reference_strains/HAstV-1_ref_complete.fasta'
+reference = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/prototypes_VP1/EV71_VP1_refseq.fasta'
 
 #positions = position of region of interest in reference sequence 
-positions = 4574,4921
+positions = 1,894
 
 #minimal and maximal length of sequence to retrieve from file in GenBank format
 min_length = 300
-max_length = 8000
+max_length = 7000
 
 #method - method of sample generation
 #	'similar' - removing similar sequences
 #	'random' - dividing all sequences into groups by the first 5 characters in sequence GenBank IDs. 
 #Then picks randomly the defined % of sequences from very large groups which are defined by user.
-method = similar
+method = random
 
 #cutoff - percent of minimal difference between 2 sequences
-cutoff = 0.5
+cutoff = 0
 cutoff1 = 30
 
 #s = 1  -  save intermediate files, s = 0 - don't save

@@ -34,8 +34,7 @@ def parse_gb(input_file, min_length, max_length):
 
     #fields in GB entry which will be extracted
     FIELD_NAMES = ["strain", "isolate", "country", "collection_date"]
-
-
+    
     #country_map - file with abbreviations of countries
     country_map = read_csv(COUNTRY_MAP_FILE)
     
@@ -194,13 +193,15 @@ def map_feature(feature, feature_map):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file")
+                        help="Input file", required=True)
     parser.add_argument("-min", "--min_length", type=int,
                         help="Minimal length of sequence.\
-                        Sequences shorter than min length will not be included in the final dataset")
+                        Sequences shorter than min length will not be included in the final dataset",\
+                        required=True)
     parser.add_argument("-max", "--max_length", type=int,
                         help="Maximal length of sequence. \
-                        Sequences longer than max length will not be included in the final dataset")
+                        Sequences longer than max length will not be included in the final dataset",\
+                        required=True)
     args = parser.parse_args()
 
     if not len(sys.argv) == 7:
