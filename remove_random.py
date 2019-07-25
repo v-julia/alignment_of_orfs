@@ -1,5 +1,6 @@
 import argparse
 import matplotlib.pyplot as plt
+import os
 import random
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
@@ -41,7 +42,7 @@ def remove_random(fasta):
 
         #creating histogram
         #plt.figure(figsize=(15,10))
-        plt.hist(nums_for_hist)
+        plt.hist(nums_for_hist, bins = range(min(nums_for_hist),max(nums_for_hist),1))
         plt.title('Group size distribution', size = "25")
         plt.xlabel('Size of the group ', size = "20")
         plt.ylabel('Number of groups', size = "20")
@@ -81,7 +82,7 @@ def remove_random(fasta):
 
 
         #writing sequences into file
-        fasta1 = "%s_%s.fasta" % (fasta.replace(".fasta", ""), "random"+'_'+str(max_size)+'_'+str(per_of_seq))
+        fasta1 =  os.path.splitext(fasta)[0] + "_random_" + str(max_size)+ '_' + str(per_of_seq) + ".fasta"
         SeqIO.write(final_seq_list, fasta1, "fasta")
         return(fasta1)
         

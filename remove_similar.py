@@ -1,5 +1,6 @@
 import argparse
 import itertools
+import os
 import sys
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
@@ -24,7 +25,7 @@ def remove_sim_seq(input_file, cutoff, cutoff1):
                         print(comp, key, k)
                         del alignment[k]
 
-    new_fn = "%s_%s.fasta" % (input_file.replace(".fasta", ""), cutoff)
+    new_fn =  os.path.splitext(input_file)[0] + "_"+ str(cutoff) + ".fasta"
     with open(new_fn, 'w') as f:
         for key in keys_alignment:
             if key in alignment:
