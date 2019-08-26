@@ -88,10 +88,12 @@ def check_overlap(col):
     l1 = col['length'] / (end - start + 1)
     l2 = ((end - sstart+1) / (end - start + 1))
     l3 = ((send - start +1) / (end - start + 1))
-    inside = start >= sstart and end <= send and col['length'] / (end - start + 1)>0.9 #target region is inside alignment
-    left = start <= sstart and sstart <= end and ((end - sstart+1) / (end - start + 1))>0.9 
-    right  = start <= send and send <= end and ((send - start +1) / (end - start + 1))>0.9 
-    larger = start <= sstart and end >= sstart #targer region is larger than alignment
+    inside = start >= sstart and end <= send #target region is inside alignment
+    #left = start <= sstart and sstart <= end and ((end - sstart+1) / (end - start + 1))>0.9
+    left = sstart <= end and end <= send and ((end - sstart+1) / (end - start + 1))>0.9 
+    #right  = start <= send and send <= end and ((send - start +1) / (end - start + 1))>0.9 
+    right = sstart <= start and start <=send  and ((send - start +1) / (end - start + 1))>0.9 
+    larger = start <= sstart and end >= send and col['length'] / (end - start + 1)>0.9 #target region is larger than alignment # 
     
     if inside or left or right or larger:
         col['overlap']  = 1

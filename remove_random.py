@@ -52,7 +52,7 @@ def remove_random(fasta):
         print("Type in the maximal group size; then press Enter")
         max_size = int(input())
         print("Type in the percent of sequences to remove from the groups with size larger than adjusted; then press Enter")
-        per_of_seq = int(input())
+        per_of_seq = float(input())
 
 
         # creating list with names of sequences in final sample
@@ -65,7 +65,7 @@ def remove_random(fasta):
                             final_sample_ids.append(i)
                 else:
                     
-                    random_sample = random.sample(value, max(1,int(len(value)*per_of_seq/100)))
+                    random_sample = random.sample(value, max(4,int(len(value)*per_of_seq/100)))
                     num = num + (len(random_sample))
                     for seq in random_sample:
                         final_sample_ids.append(seq)

@@ -102,9 +102,9 @@ fasta_aln = fasta_wref.replace('.fasta', '_aln.fasta')
 
 print("Aligning sequences")
 if sys.platform == 'win32' or sys.platform == 'cygwin':
-    system(('{} --op 60 --ep 9 --retree 1 ' + fasta_wref+ ' > ' + fasta_aln).format(path_to_mafft+'mafft.bat'))
+    system(('{} --op 15 --ep 3 --retree 1 ' + fasta_wref+ ' > ' + fasta_aln).format(path_to_mafft+'mafft.bat'))
 else:
-    system(('{} --op 60 --ep 9 --retree 1 ' + fasta_wref+ ' > ' + fasta_aln).format(path_to_mafft+'mafft'))
+    system(('{} --op 15 --ep 3 --retree 1 ' + fasta_wref+ ' > ' + fasta_aln).format(path_to_mafft+'mafft'))
 
 print("Done")
 

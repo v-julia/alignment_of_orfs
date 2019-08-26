@@ -1,28 +1,32 @@
 #path to input genbank file with virus sequences
-input_file = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/serotypes_VP1/EV71_VP1/EV71_VP1.gb'
+#input_file = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/serotypes_VP1/EV71_VP1/EV71_VP1.gb'
+input_file = 'D:/DATA/samplebias/biases/FMDV_alignments/FMDV_C.gb'
 
 #path to fasta-file with reference sequence
-reference = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/prototypes_VP1/EV71_VP1_refseq.fasta'
+#reference = 'D:/MY_FILES/DATA/Lukashev/Enteroviruses/input/prototypes_VP1/EV71_VP1_refseq.fasta'
+reference = 'D:/DATA/samplebias/biases/FMDV_alignments/AY593810.1.fasta'
 
 #positions = position of region of interest in reference sequence 
-positions = 1,894
+positions = 3188,3814
 
 #minimal and maximal length of sequence to retrieve from file in GenBank format
 min_length = 300
-max_length = 7000
+max_length = 8500
 
 #method - method of sample generation
 #	'similar' - removing similar sequences
 #	'random' - dividing all sequences into groups by the first 5 characters in sequence GenBank IDs. 
 #Then picks randomly the defined % of sequences from very large groups which are defined by user.
-method = random
+method = similar
 
 #cutoff - percent of minimal difference between 2 sequences
 cutoff = 0
-cutoff1 = 30
+cutoff1 = 55
 
 #s = 1  -  save intermediate files, s = 0 - don't save
 s = 1
 
-path_to_blast = D:/MY_FILES/Programs/blast-2.6.0+/bin/
-path_to_mafft = D:/MY_FILES/DATA/Lukashev/scripts/mafft-win/
+#path_to_blast = D:/MY_FILES/Programs/blast-2.6.0+/bin/
+#path_to_mafft = D:/MY_FILES/DATA/Lukashev/scripts/mafft-win/
+path_to_blast = D:/Programs/blast-2.9.0+/bin/
+path_to_mafft = D:/Programs/mafft-win/
