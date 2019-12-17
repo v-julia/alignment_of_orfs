@@ -6,17 +6,18 @@ import sys
 from textwrap import wrap
 
 
-#For each entry in GenBank file retrieves nucleotide sequence, collection date and country 
-#Generates file with sequences in fasta format, 
-#sequences' names are in the following format: GenbankAccessionNumber_country_collectionYear
-#saves the file in the directory of input_file
-
-#input_file - file with sequences in GenBank format
-#min length, max length - minimal and maximal lenghts of sequence in origin field
-#type - type of alignment, short of full fragment of gene
-#output - name of output file
 def parse_gb(input_file, min_length, max_length):
+    '''
+    For each entry in GenBank file retrieves nucleotide sequence, collection date and country 
+    Generates file with sequences in fasta format, 
+    sequences' names are in the following format: GenbankAccessionNumber_country_collectionYear
+    saves the file in the directory of input_file
 
+    input_file - file with sequences in GenBank format
+    min length, max length - minimal and maximal lenghts of sequence in origin field
+    type - type of alignment, short of full fragment of gene
+    output - name of output file
+    '''
     #File with countries/cities/other features and their abbreviations
     #Should be located at the same directory as script
     COUNTRY_MAP_FILE = os.path.join(sys.path[0],"country_map.csv")
@@ -24,7 +25,6 @@ def parse_gb(input_file, min_length, max_length):
     CITY_MAP_FILE = os.path.join(sys.path[0],"city_map.csv")
 
     #name of output file
-
     OUTPUT_FILE = '.'.join(input_file.split('.')[:-1]) + '.fasta'
 
 
@@ -204,7 +204,4 @@ if __name__ == "__main__":
                         required=True)
     args = parser.parse_args()
 
-    if not len(sys.argv) == 7:
-        print("Please, use \"python parser_gb.py --help\"")
-    else:
-        parse_gb(args.input_file, args.min_length, args.max_length)
+    parse_gb(args.input_file, args.min_length, args.max_length)

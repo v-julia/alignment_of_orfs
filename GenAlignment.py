@@ -9,22 +9,24 @@ from remove_random import remove_random
 from excise_target_region import find_target_region
 from cut_fasta import cut_fasta
 
-#This script:
-#0) extracts parameters from 'config.txt' file stored in local directory
-#1) converts genbank file to fasta format with sequences names in format "GenbankID_country_year"
-#2) performs blast of sequences from genbank file against reference genome, saves sequences which overlap with 
-#target genome (coordinates are defined in 'config.txt') are saved to file {input_fname}_exc.fasta
-#3) adds reference sequences to {input_fname}_exc.fasta and saves the resulting dataset to {input_fname}_exc_wref.fasta
-#4) multiple alignment using mafft > {input_fname}_exc_wref_aln.fasta
-#5) Removes some sequences from the dataset in two ways:
-#a) calculates p-distances between sequences pairs in loop, if p-distance < cutoff and p-distance > cutoff1
-#removes the sequence with higher serial number. cutoff and cutoff1 must be written in config.txt
-#Save sequences to {input_fname}_exc_wref_remove_cutoff.fasta
-#b) divides all sequences into groups by the first 5 characters in GenBank ID, 
-#randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
-#Saves sequences to {input_fname}_exc_wref_random_m_k.fasta
-#6)cuts alignment by reference sequence, saves alignment to {input_fname}_exc_wref_random_m_k_cut.fasta
-
+'''
+This script:
+0) extracts parameters from 'config.txt' file stored in local directory
+1) converts genbank file to fasta format with sequences names in format "GenbankID_field1_field2_..._fieldN"
+where filedK is a qualifier in genbank files. The list of qualifiers is defined in parser_gb.py
+2) performs blast of sequences from genbank file against reference genome, saves sequences which overlap with 
+target genome (coordinates are defined in 'config.txt') are saved to file {input_fname}_exc.fasta
+3) adds reference sequences to {input_fname}_exc.fasta and saves the resulting dataset to {input_fname}_exc_wref.fasta
+4) multiple alignment using mafft > {input_fname}_exc_wref_aln.fasta
+5) Removes some sequences from the dataset in two ways:
+a) calculates p-distances between sequences pairs in loop, if p-distance < cutoff and p-distance > cutoff1
+removes the sequence with higher serial number. cutoff and cutoff1 must be written in config.txt
+Save sequences to {input_fname}_exc_wref_remove_cutoff.fasta
+b) divides all sequences into groups by the first 5 characters in GenBank ID, 
+randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
+Saves sequences to {input_fname}_exc_wref_random_m_k.fasta
+6)cuts alignment by reference sequence, saves alignment to {input_fname}_exc_wref_random_m_k_cut.fasta
+'''
 # Extracting parameters from config.txt
 
 print('Reading config.txt ...')
@@ -66,7 +68,6 @@ for line in config_file:
             path_to_mafft = value
 config_file.close()
 print('Done')
-
 
 # 1) fasta from gb_file
 print(input_file)
@@ -137,16 +138,16 @@ if s==0:
     try:
         print('Deleting intermediate files...')
 
-        out_dir = '/'.join(input_file.split('/')[:-1])+'/'
+        out_dir = os.path.split(input_file)[0]
 
         Path(fasta0).unlink()
         Path(fasta_targ).unlink()
         Path(fasta_wref).unlink()
         Path(fasta_rem).unlink()
-        Path(out_dir+'blast.out').unlink()
-        Path(out_dir+'local_db.nhr').unlink()
-        Path(out_dir+'local_db.nin').unlink()
-        Path(out_dir+'local_db.nsq').unlink()
+        Path(os.path.join(out_dir,'blast.out')).unlink()
+        Path(os.path.join(out_dir,'local_db.nhr')).unlink()
+        Path(os.path.join(out_dir,'local_db.nin')).unlink()
+        Path(os.path.join(out_dir,'local_db.nsq')).unlink()
 
     except:
         print('Error: Can\'t  delete intermediate files')

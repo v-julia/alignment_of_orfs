@@ -6,10 +6,15 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 
 
-#input_file - name of input file in fasta format
-#Removes sequences with p-distance less than cutoff and more than cutoff1
 def remove_sim_seq(input_file, cutoff, cutoff1):
-
+    '''
+    Removes sequences with p-distance less than cutoff and more than cutoff1
+    Input:
+        input_file - name of input file in fasta format
+        cutoff - minimal p-distance
+        cutoff1 - maximal p-distance
+    
+    '''
     #cutoff = float(input('Input % distance cut-off > '))
     keys_alignment, alignment = parse_input_file(input_file)
     print(keys_alignment[0])
@@ -36,9 +41,13 @@ def remove_sim_seq(input_file, cutoff, cutoff1):
     f.close()            
     return(new_fn)
 
-#s1,s2 - strings
-#returns similarity between 2 sequences BUT these sequences can be not aligned
+
 def compare_seq(s1, s2):
+    '''
+    Input:
+        s1,s2 - strings
+    Returns similarity between 2 sequences. Be aware that these sequences might be not aligned
+    '''
     #number of equal positions
     eq = 0
     #number of unequal positions
@@ -67,10 +76,12 @@ def compare_seq(s1, s2):
         return 100
     else:
         return 100 * float(neq) / (neq + eq)
-#input_file - name of input fasta-file
-#returns sequence names as a list 'keys' and dictionary 'alignment': alignment[key] = ''
+
 def parse_input_file(input_file):
-    
+    '''
+    input_file - name of input fasta-file
+    Returns sequence names as a list 'keys' and dictionary 'alignment': alignment[key] = ''
+    '''
     alignment = {}
     with open(input_file, 'r') as f:
         keys = []
@@ -96,20 +107,23 @@ def parse_input_file(input_file):
         
         
 
-
-
-#finds ORF in sequence
-#input - nucleotide sequence (type string)
-#output - nucleotide sequence (only found ORF) (type string)
 def find_ORF(seq):
+    '''
+    Finds ORF in sequence
+    Input:
+        seq - nucleotide sequence (type string)
+    Output:
+        ORF found in seq (type string)
+    '''
+
     #threshold - minimal length of putative ORF
-    if int(len(seq)/4)> 300:
-        threshold = int(len(seq)/3.5)
+    if int(len(seq) / 4) > 300:
+        threshold = int(len(seq) / 3.5)
     else: threshold = 300
 
 
-    
-    stop_codons = ['TAG', 'TAA', 'TGA', 'tag', 'taa', 'tga']
+    seq = seq.lower()
+    stop_codons = ['tag', 'taa', 'tga']
     #template seq
     seq1=seq[:]
     
@@ -145,22 +159,26 @@ def find_ORF(seq):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-input", "--input_file", type=str,
+    parser.add_argument("-input",
+                        "--input_file",
+                        type=str,
+                        required=True,
                         help="Input file in fasta format")
-    parser.add_argument("-min", "--min_distance", type=float,
+    parser.add_argument("-min",
+                        "--min_distance",
+                        type=float,
+                        required=True,
                         help="Minimal pairwise distance between sequences.\
                         If p-distance is lower than min_distance sequence \
                         with higher serial number will be removed from the dataset")
-    parser.add_argument("-max", "--max_distance", type=float,
+    parser.add_argument("-max",
+                        "--max_distance",
+                        type=float,
+                        required=True,
                         help="Maximal pairwise distance between sequences.\
                         If p-distance is higher than max_distance sequence \
                         with higher serial number will be removed from the dataset")
-                            
+
     args = parser.parse_args()
 
-
-    if not len(sys.argv) == 7:
-        print('Please use "python remove_similar.py --help" for help ')
-
-    else:
-        remove_sim_seq(args.input_file, args.min_distance, args.max_distance)
+    remove_sim_seq(args.input_file, args.min_distance, args.max_distance)
