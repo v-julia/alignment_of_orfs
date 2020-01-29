@@ -39,7 +39,8 @@ If *country_map.csv* with countries' abbreviations is in the local directory, se
 #### Usage
 
 ```
-parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH
+parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
+                    FEATURES
 
   -input <str>          Path to input-file in GenBank-format
                         
@@ -47,6 +48,8 @@ parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH
                         length will not be included in the final dataset
                         
   -max   <int>          Maximal length of sequence. Sequences longer than max
+                        length will not be included in the final dataset
+  -features   <str>     Maximal length of sequence. Sequences longer than max
                         length will not be included in the final dataset
 
 

@@ -6,7 +6,7 @@ import sys
 from textwrap import wrap
 
 
-def parse_gb(input_file, min_length, max_length):
+def parse_gb(input_file, min_length, max_length, field_names=[]):
     '''
     For each entry in GenBank file retrieves nucleotide sequence, collection date and country 
     Generates file with sequences in fasta format, 
@@ -15,13 +15,12 @@ def parse_gb(input_file, min_length, max_length):
 
     input_file - file with sequences in GenBank format
     min length, max length - minimal and maximal lenghts of sequence in origin field
-    type - type of alignment, short of full fragment of gene
-    output - name of output file
+    field_names - list with qualifiers to be retrieved
     '''
     #File with countries/cities/other features and their abbreviations
     #Should be located at the same directory as script
     COUNTRY_MAP_FILE = os.path.join(sys.path[0],"country_map.csv")
-    FEATURE_MAP_FILE = os.path.join(sys.path[0],"feature_map.csv") #not developed yet
+    # FEATURE_MAP_FILE = os.path.join("D:\GoogleDrive\LeishmaniaViruses\L_host_map.csv") #not developed yet
     CITY_MAP_FILE = os.path.join(sys.path[0],"city_map.csv")
 
     #name of output file
@@ -34,22 +33,29 @@ def parse_gb(input_file, min_length, max_length):
     MAX_ORIGIN_SIZE = max_length
 
     #fields in GB entry which will be extracted
-    FIELD_NAMES = ["strain", "isolate", "country", "collection_date"]
+    if field_names == []:
+        FIELD_NAMES = ["strain", "isolate",  "country", "collection_date"]
+    else:
+        FIELD_NAMES = field_names
     
     #country_map - file with abbreviations of countries
     country_map = read_csv(COUNTRY_MAP_FILE)
     
+    if "host" in FIELD_NAMES:
+        host_map = read_csv(os.path.join(sys.path[0],"host_map.csv"), strip_it=False)
+        host_map = compile_feature_map(host_map)
+        #print(host_map)
     #feature_map = read_csv(FEATURE_MAP_FILE, strip_it=False)
     #city_map = read_csv(CITY_MAP_FILE)
     
-    #RegExp for parsing  INPUT_FILE
+    #RegExp for parsing INPUT_FILE
     accession = re.compile(r"^ACCESSION\s+([a-z_A-Z0-9]+)") #accession number
     features = re.compile(r"^\s+\/([a-z_]+)=\"([^\"]+)\"$") #qualifiers from FEATURE source field
 
     #origin = re.compile(r"\s+\d+\s+([a-z ]+)$")
     origin = re.compile(r"\s+\d+\s+([atgcnrykmswbdhvu\s]+)$") #origin field (contains nt sequence)
     end_line = re.compile(r"^//\s+$") #end line of entry
-    clean_from = re.compile(r"[:;.,/\s]")
+    clean_from = re.compile(r"[:;.,/\s_]")
     clean_to = "-"
 
     #
@@ -82,6 +88,7 @@ def parse_gb(input_file, min_length, max_length):
             m = accession.match(line) #finds ACCESSION field using RegExp
             if (m):
                 test_accession = m.group(1)
+                #print(test_accession)
                 
             #check whether /source has started or has ended
             if re.match(r"^\s{5}[a-zA-z_]+[\s0-9<>\.]+", line) or re.match(r"^[a-zA-z]+", line):
@@ -100,7 +107,7 @@ def parse_gb(input_file, min_length, max_length):
 
 
             if(end_line.search(line)): #the end of entry
-
+                #print(test_features)
                 if ("collection_date" or "collected_by") in test_features: 
                     test_features["collection_date"] = check_year(test_features["collection_date"]) #reformates collection date
 
@@ -108,10 +115,9 @@ def parse_gb(input_file, min_length, max_length):
                     test_features["country"] = map_feature(test_features["country"], country_map) #replaces country by its abbreviation
 
 
-                #for k in ["strain", "organism"]:
-                    #if k in test_features: 
-                        #test_features[k] = map_feature(test_features[k], feature_map)
-            
+                if "host" in test_features:
+                        test_features["host"] = map_feature_reg(test_features["host"], host_map)
+
             
                 if ("collection_date" or "collected_by") not in test_features: #adds entries without collection date to test_nodate list
                     tests_nodate.append({
@@ -119,7 +125,8 @@ def parse_gb(input_file, min_length, max_length):
                         "features" : test_features,
                         "origin" : test_origin
                         })
-                
+
+
                 else:
                     tests.append({
                         "accession" : test_accession, 
@@ -140,19 +147,23 @@ def parse_gb(input_file, min_length, max_length):
 
     # Writing sequences in fasta-format to OUTPUT_FILE 
     out = open(OUTPUT_FILE, "w+")
+
     for test in tests:
         aaccession, f, origin = test["accession"], test["features"], test["origin"]
         #print(aaccession, f, origin)
-        #print(aaccession)
+        #print(aaccession, f)
         if not (MIN_ORIGIN_SIZE < len(origin) < MAX_ORIGIN_SIZE):
-            print(aaccession, len(origin))
+            #print(aaccession, len(origin))
             continue
 
         #new name of entry = GB accession number + country + year
         output_name = ">%s" % aaccession
+
         for field_name in FIELD_NAMES:
             if field_name not in f:
-                continue
+                #print(filed_name)
+                f[field_name] = 'NA'
+            #print(re.sub(clean_from, clean_to,f[field_name]))
             output_name += "_%s" % re.sub(clean_from, clean_to,f[field_name])
         output_name += "\n"
         out.write(output_name)
@@ -177,16 +188,41 @@ def read_csv(file_name, strip_it=True):
                                 fieldnames=["base", "new"])
         result = {}
         for row in reader:
-            result[strip(row["base"].lower())] = strip(row["new"])
+
+            result[strip(row["base"])] = strip(row["new"])
         csvfile.close()
         return result
 
-#feature_map - dictionary, e.g. feature_map['Italia']='ITA'
-#feature - possible key from feature_map
-#return value if key is in feature_map
+def compile_feature_map(feature_map):
+    # feature_map is list wih tuples (compiled regular exp, value)
+    feature_map_comp = []
+    for key in feature_map:
+        key_comp = re.compile(key)
+        feature_map_comp.append((key_comp, feature_map[key]))
+    return feature_map_comp
+
+
+def map_feature_reg(feature, feature_map):
+    '''
+    feature - str - value in qualifier
+    feature map - list with tuples, e.g. (reg_exp, value)
+    If reg exp  matches feature, return value, else return feature
+    '''
+    for k, v in feature_map:
+        if k.search(feature):
+            return v
+    print('Couldn\\t find key for {}'.format(feature))
+    return feature
+
+
 def map_feature(feature, feature_map):
+    '''
+    feature_map - dictionary, e.g. feature_map['Italia']='ITA'
+    feature - possible key from feature_map
+    return value if key is in feature_map
+    '''
     for k, v in feature_map.items():
-        if feature.lower().startswith(k):
+        if feature.lower().startswith(k.lower()):
             return v
     return feature
 
@@ -202,6 +238,12 @@ if __name__ == "__main__":
                         help="Maximal length of sequence. \
                         Sequences longer than max length will not be included in the final dataset",\
                         required=True)
-    args = parser.parse_args()
 
-    parse_gb(args.input_file, args.min_length, args.max_length)
+    parser.add_argument("-f", "--features", type=str,
+                        help="string with qualifiers to retrieve from GenBank annotation,\
+                        e.g. 'country,host,collection_date'",\
+                        required=True)
+    args = parser.parse_args()
+    features = args.features.split(',')
+
+    parse_gb(args.input_file, args.min_length, args.max_length, features)
