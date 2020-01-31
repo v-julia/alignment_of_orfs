@@ -40,9 +40,10 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
     
     #country_map - file with abbreviations of countries
     country_map = read_csv(COUNTRY_MAP_FILE)
-    
+
+
     if "host" in FIELD_NAMES:
-        host_map = read_csv(os.path.join(sys.path[0],"host_map.csv"), strip_it=False)
+        host_map = read_csv(os.path.join(sys.path[0],"host_map.csv"), strip_it=True)
         host_map = compile_feature_map(host_map)
         #print(host_map)
     #feature_map = read_csv(FEATURE_MAP_FILE, strip_it=False)
@@ -115,7 +116,7 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
                     test_features["country"] = map_feature(test_features["country"], country_map) #replaces country by its abbreviation
 
 
-                if "host" in test_features:
+                if "host" in FIELD_NAMES:
                         test_features["host"] = map_feature_reg(test_features["host"], host_map)
 
             

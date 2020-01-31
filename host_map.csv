@@ -22,7 +22,7 @@
 (^|\s|\()civet($|\s|\)|;),civet
 (^|\s|\()moorhen($|\s|\)|;),moorhen
 (^|\s|\()Cynopterus sphinx($|\s|\)|;),bat
-(^|\s|\()Delphinapterus leucas (beluga whale)($|\s|\)|;),beluga
+(^|\s|\()Delphinapterus leucas \(beluga whale\)($|\s|\)|;),beluga
 (^|\s|\()dog($|\s|\)|;),dog
 (^|\s|\()dromedary($|\s|\)|;),camel
 (^|\s|\()duck($|\s|\)|;),duck
@@ -35,7 +35,7 @@
 (^|\s|\()giraffe($|\s|\)|;),giraffe
 (^|\s|\()Hipposideros($|\s|\)|;),bat
 (^|\s|\()Homo sapiens($|\s|\)|;),human
-(^|\s|\()Hydropotes inermis (water deer)($|\s|\)|;),deer
+(^|\s|\()Hydropotes inermis \(water deer\)($|\s|\)|;),deer
 (^|\s|\()Hypsugo savii($|\s|\)|;),bat
 (^|\s|\()Lama glama($|\s|\)|;),lama
 (^|\s|\()large pig roundworm($|\s|\)|;),roundworm
