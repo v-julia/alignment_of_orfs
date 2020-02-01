@@ -116,7 +116,7 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
                     test_features["country"] = map_feature(test_features["country"], country_map) #replaces country by its abbreviation
 
 
-                if "host" in FIELD_NAMES:
+                if "host" in FIELD_NAMES and "host" in test_features:
                         test_features["host"] = map_feature_reg(test_features["host"], host_map)
 
             
