@@ -1,0 +1,217 @@
+1A polyprotein,1A
+1a pol protein,1A
+1a polymerase,1A
+1a protein,1A
+1AB polyprotein,1AB
+1a,1A
+1a polyprotein,1A
+1ab,1AB
+1ab protein,1AB
+1ab polyprotein,1AB
+1ab pol protein,1AB
+1b,1B
+1b polymerase,1B
+1b polyprotein,1B
+1b protein,1B
+ORF 1a,1A
+ORF 1ab,1AB
+ORF 1a polyprotein,1A
+ORF 1ab,1AB
+ORF 1ab polyprotein,1AB
+ORF 1b polyprotein,1B
+ORF1A,1A
+ORF1B,1B
+ORF1a,1A
+ORF1a polyprotein,1A
+ORF1a protein,1A
+ORF1ab,1AB
+ORF1ab polyprotein,1AB
+ORF1ab protein,1AB
+ORF1b,1B
+ORF1b polyprotein,1B
+ORF1b protein,1B
+ORF1ab protein,1AB
+Orf1a polyprotein,1A
+Orf1a protein,1A
+Orf1ab,1AB
+Orf1ab protein,1AB
+P1a,1A
+P1b,1B
+PP1a,1A
+PP1ab,1AB
+Pp1a,1A
+Pp1ab,1AB
+pp1a,1A
+pp1ab,1AB
+RNA dependent RNA polymerase,1AB_ORF
+RNA polymerase 1a,1A
+RNA polymerase 1b,1B
+RNA-directed RNA polymerase,1AB_ORF
+non-structural polyprotein,1AB_ORF
+non-structural polyprotein 1a,1A
+non-structural polyprotein 1ab,1AB
+non-structural polyprotein pp1a,1A
+non-structural polyprotein pp1ab,1AB
+nonstructural polyprotein,1AB_ORF
+nonstructural polyprotein pp1a,1A
+nonstructural polyprotein pp1ab,1AB
+orf1A,1A
+orf1B,1B
+orf1a,1A
+orf1a polyprotein,1A
+orf1a polyprotein (pp1a),1A
+orf1a protein,1A
+orf1ab,1AB
+orf1ab polyprotein,1AB
+orf1ab polyprotein (pp1ab),1AB
+orf1b,1B
+orf1b polyprotein,1B
+polymerase 1a,1A
+polymerase 1b,1B
+polyprotein,1AB_ORF
+polyprotein 1a,1A
+polyprotein 1ab,1AB
+polyprotein ORF1a,1A
+polyprotein ORF1ab,1AB
+polyprotein orf1a,1A
+polyprotein orf1ab,1AB
+polyprotein 1A,1A
+polyprotein 1B,1B
+polyprotein 1a,1A
+polyprotein 1ab,1AB
+polyprotein 1b,1B
+pp1a polyprotein,1A
+pol protein,1AB
+polymerase/replicase,1AB
+putative 1a polyprotein,1A
+putative 1b polyprotein,1B
+putative ORF1ab polyprotein,1AB
+putative orf1ab polyprotein,1AB
+putative replicase polyprotein 1ab,1AB
+putative replicase polyprotein 1a,1A
+rep,1AB_ORF
+Rep1ab,1AB
+replicase,1AB_ORF
+replicase 1AB,1AB
+replicase 1AB polyprotein,1AB
+replicase 1ab,1AB
+replicase p1AB,1AB
+replicase 1a,1A
+replicase 1b,1B
+replicase polyprotein,1AB
+replicase polyprotein 1a,1A
+replicase polyprotein 1ab,1AB
+replicative polyprotein 1a,1A
+replicative polyprotein 1ab,1AB
+replicase polyprotein 1b,1B
+replicase polyprotein orf1a,1A
+replicase polyprotein orf1ab,1AB
+replicase protein 1a,1A
+replicase protein 1ab,1AB
+replicase protein orf1a,1A
+replicase protein orf1ab,1AB
+replicase protein1a,1A
+polyprotein 1AB,1AB
+polyprotein 1a,1A
+polyprotein 1ab,1AB
+polyprotein 1b,1B
+polyprotein ORF1a,1A
+polyprotein ORF1ab,1AB
+polyprotein ORF1b,1B
+polyprotein ab,1AB
+polyprotein orf1a,1A
+polyprotein orf1ab,1AB
+polyprotein orf1b,1B
+putative E2 glycoprotein precursor,S
+E2 glycoprotein precursor,S
+S,S
+s,S
+S glycoprotein,S
+Spike (S) glycoprotein,S
+S protein,S
+Spike,S
+putative spike glycoprotein,S
+putative spike glycoprotein S,S
+spike,S
+spike glycoprotein,S
+spike glycoprotein (S),S
+spike glycoprotein S,S
+spike glycoprotein precursor,S
+spike protein,S
+spike protein S,S
+spike protein precursor,S
+spike structural protein,S
+spike surface glycoprotein,S
+structural protein S,S
+surface glycoprotein,S
+structural surface glycoprotein,S
+surface glycoprotein,S
+surface spike glycoprotein,S
+truncated spike protein,S
+E,E
+E protein,E
+envelop protein (E),E
+envelope,E
+envelope glycoprotein,E
+envelope glycoprotein E,E
+envelope protein,E
+envelope protein E,E
+e,E
+envelop protein,E
+enveloppe protein,E
+envelope small membrane protein,E
+putative envelope protein,E
+putative envelope protein E,E
+putative small envelope protein,E
+small envelope E protein,E
+small envelope protein,E
+small membrane protein,E
+structural protein E,E
+sM,E
+sM protein,E
+small envelope protein,E
+small membrane protein,E
+E(3c),E
+Envelope (E) glycoprotein (3c),E
+envelope E protein,E
+small virion-associated protein,E
+truncated E protein,E
+E1 glycoprotein,M,M
+M protein,M
+M protein|,M
+matrix glycoprotein,M
+matrix protein,M
+membrane,M
+membrane glycoprotein,M
+membrane glycoprotein M,M
+membrane multispanning envelope protein,M
+membrane polyprotein,M
+membrane protein,M
+membrane protein (M),M
+membrane protein M,M
+membrane M protein,M
+putative M protein,M
+putative envelope protein M,M
+putative membrane protein,M
+putative membrane protein M,M
+structural protein M,M
+m,M
+membrance protein,M
+mp,M
+mp protein,M
+N,N
+n,N
+N protein,N
+nucleocapsid,N
+nucelocapsid,N
+nucleocapsid phosphoprotein,N
+putative nucleocapsid protein,N
+putative nucleocapsid protein N,N
+putative nucleoprotein,N
+structural protein N,N
+nucleocapsid protein,N
+nucleocaspid protein,N
+nucleoprotein,N
+nucleocapsid N protein,N
+nucleopcapsid N protein,N
+nucloecapsid protein,N
