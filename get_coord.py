@@ -4,6 +4,8 @@ import re
 from Bio import SeqIO
 from Bio import GenBank
 
+
+
 def get_utr_coord(input_file):
     '''
     Finds the coordinates of 5'NTR and 3'NTR in file with nucleotide sequences
