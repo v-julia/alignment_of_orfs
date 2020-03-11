@@ -36,7 +36,7 @@ if __name__ == '__main__':
                         help="Input file in GenBank format",
                         required=True)
     parser.add_argument("-odir", "--output_dir", type=str,
-                        help="Output directory to save the",
+                        help="Output directory to save the output file",
                         required=True)
     parser.add_argument("-oname", "--output_name", type=str,
                         help="Name of output file",
