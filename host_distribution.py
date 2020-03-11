@@ -37,7 +37,7 @@ if __name__ == '__main__':
                         required=True)
     parser.add_argument("-odir", "--output_dir", type=str,
                         help="Output directory to save the output file",
-                        required=True)
+                        )
     parser.add_argument("-oname", "--output_name", type=str,
                         help="Name of output file",
                         required=True)
