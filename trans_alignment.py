@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    path_to_mafft = 'D:\\Programs\\mafft-win\\'
+    path_to_mafft = 'C:\\Program Files\\MAFFT\\'
     trans_file, dict_codons = translate_aln(args.input_file)
     trans_file_aln = os.path.splitext(trans_file)[0] + '_aln.fasta'
     if sys.platform == 'win32' or sys.platform == 'cygwin':
