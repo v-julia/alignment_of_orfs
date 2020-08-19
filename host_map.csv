@@ -81,3 +81,27 @@
 (^|\s|\()white-tailed deer($|\s|\)|;),deer
 (^|\s|\()wigeon($|\s|\)|;),wigeon
 (^|\s|\()yak($|\s|\)|;),yak
+Amur tiger,tiger
+Marmota himalayana,marmot
+Canine lupus familaris,dog
+Cerdocyon thous,crab-eating-fox
+Ovibos moschatus,ovibos
+Canis lupus familaris,dog
+ovine,sheep
+sheep,sheep
+Steer,bull
+roe deer,deer
+Coracias garrulus (European roller),roller
+Zalophus californianus (California sea lion),sea-lion
+Passeriformes,exclude
+Sarcophilus harrisii,tasmanian-devil
+Eidolon helvum,bat
+grey squirrel,squirrel
+Vulpes vulpes,fox
+Ovis aries,sheep
+Capra hircus,goat
+Budorcas taxicolor tibetana,takin
+Homo sapiens, 24 months old femail,human
+Hystrix brachyurus,porcupine
+Bat,bat
+Culex sp. (mosquito),exclude

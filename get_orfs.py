@@ -21,8 +21,10 @@ def orf_coord(input_file, orf_map):
     orf_dict = read_csv(orf_map)
     # possible ORFs
     orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
+    orf_types = ['1A', '1B', '1AB', '2', '?', 'X']
     # list of ORFs in final table
     orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
+    orf_types_final = ['1A', '1B', '2',]
 
 
     out_file_name = os.path.splitext(input_file)[0] + '_orf.txt'
@@ -64,7 +66,8 @@ def orf_coord(input_file, orf_map):
                                     print(feature.location.parts)
                                     print([int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)])
                                     dict_coord[rec.id]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
-                                    dict_coord[rec.id]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
+                                    if len(feature.location.parts) > 1:
+                                        dict_coord[rec.id]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
                                     pol_count += 1
                             elif product == '1AB_ORF':
                                 if pol_count == 0:
