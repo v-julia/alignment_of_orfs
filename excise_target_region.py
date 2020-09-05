@@ -20,7 +20,7 @@ def find_target_region(input_file, reference, rstart, rend, path_to_blast):
         output_dir - output directory to save fasta file with sequences that overlap with target region
     '''
 
-    output_dir = os.split(input_file)[0] # '/'.join(input_file.split('/')[:-1])+'/'
+    output_dir = os.path.split(input_file)[0] # '/'.join(input_file.split('/')[:-1])+'/'
 
     # start and end positions of target region in reference sequence
     global start
