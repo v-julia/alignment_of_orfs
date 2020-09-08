@@ -21,10 +21,10 @@ def orf_coord(input_file, orf_map):
     orf_dict = read_csv(orf_map)
     # possible ORFs
     orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
-    orf_types = ['1A', '1B', '1AB', '2', '?', 'X']
+    #orf_types = ['1A', '1B', '1AB', '2', '?', 'X']
     # list of ORFs in final table
     orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
-    orf_types_final = ['1A', '1B', '2',]
+    #orf_types_final = ['1A', '1B', '2',]
 
 
     out_file_name = os.path.splitext(input_file)[0] + '_orf.txt'
@@ -57,6 +57,7 @@ def orf_coord(input_file, orf_map):
                         #print(feature.qualifiers['product'][0], product)
                         
                         if product not in dict_coord[rec.id].keys():
+                            print(product)
                             if product in orf_types_final:
                                 dict_coord[rec.id][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                             elif product == '1AB':
@@ -121,7 +122,7 @@ def map_feature(feature, feature_map):
     return value if key is in feature_map
     '''
     for k, v in feature_map.items():
-        if feature == k:
+        if feature.lower() == k.lower():
             return v
     return feature
 
