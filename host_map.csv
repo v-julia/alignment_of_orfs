@@ -37,6 +37,7 @@
 (^|\s|\()giraffe($|\s|\)|;),giraffe
 (^|\s|\()Hipposideros($|\s|\)|;),bat
 (^|\s|\()Homo sapiens($|\s|\)|;),human
+(^|\s|\()Homo sapiens, enteron($|\s|\)|;),human
 (^|\s|\()Hydropotes inermis \(water deer\)($|\s|\)|;),deer
 (^|\s|\()Hypsugo savii($|\s|\)|;),bat
 (^|\s|\()Lama glama($|\s|\)|;),lama
@@ -59,6 +60,8 @@
 (^|\s|\()Paguma larvata($|\s|\)|;),civet
 (^|\s|\()palm civet($|\s|\)|;),civet
 (^|\s|\()Pan troglodytes verus($|\s|\)|;),chimpanzee
+(^|\s|\()Pan troglodytes troglodytes($|\s|\)|;),chimpanzee
+(^|\s|\()chimp($|\s|\)|;),chimp
 (^|\s|\()Pheasant($|\s|\)|;),pheasant
 (^|\s|\()pig(let)*($|\s|\)|;),pig
 (^|\s|\()Pipistrellus($|\s|\)|;),bat
@@ -71,11 +74,12 @@
 (^|\s|\()Rousettus($|\s|\)|;),bat
 (^|\s|\()sambar deer($|\s|\)|;),deer
 (^|\s|\()Scotophilus kuhlii($|\s|\)|;),bat
-(^|\s|\()Zalophus californianus \(California sea lion\)($|\s|\)|;),sealion
+(^|\s|\()sewage($|\s|\)|;),sewage
 (^|\s|\()shellfish($|\s|\)|;),shellfish
 (^|\s|\()sparrow($|\s|\)|;),sparrow
+(^|\s|\()stool($|\s|\)|;),stool
 (^|\s|\()Suncus murinus($|\s|\)|;),shrew
-(^|\s|\()Sus[ _]scrofa($|\s|\)|;),pig
+(^|\s|\()Sus[ _][Ss]crofa($|\s|\)|;),pig
 (^|\s|\()swine($|\s|\)|;),pig
 (^|\s|\()Tadorna tadornoides($|\s|\)|;),shelduck
 (^|\s|\()Triaenops afer($|\s|\)|;),bat
@@ -88,3 +92,4 @@
 (^|\s|\()white-tailed deer($|\s|\)|;),deer
 (^|\s|\()wigeon($|\s|\)|;),wigeon
 (^|\s|\()yak($|\s|\)|;),yak
+(^|\s|\()Zalophus californianus \(California sea lion\)($|\s|\)|;),sealion

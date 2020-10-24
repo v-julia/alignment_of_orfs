@@ -81,7 +81,7 @@ if __name__ == '__main__':
     trans_file_aln = os.path.splitext(trans_file)[0] + '_aln.fasta'
     if sys.platform == 'win32' or sys.platform == 'cygwin':
         #--op 15 --ep 3
-        os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
+        os.system(('{} --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
     else:
         os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft'))
     reverse_translate_aln(trans_file_aln, dict_codons)

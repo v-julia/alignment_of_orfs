@@ -1,7 +1,7 @@
 import argparse
-import subprocess
 import os
 
+from Bio.Seq import Seq
 from Bio import SeqIO
 from Bio import AlignIO
 
@@ -19,14 +19,13 @@ def aln_sample(input_file, rec_ref):
     sample_list = []
     sample_list.append(rec_ref)
     for record in sample:
+        print(record)
+        record.seq = Seq((str(record.seq)).replace('-', ''))
         sample_list.append(record)
+        print(record)
     SeqIO.write(sample_list, sample_name, 'fasta')
     alignment_command = 'python .\\trans_alignment.py -input {}'.format(sample_name)
-    '''
-    doesnt work
-    
-    subprocess.call(alignment_command)
-    '''
+
     os.system(alignment_command)
     aln_name = os.path.splitext(sample_name)[0] + '_tr_aln_rt.fasta'
     return aln_name

@@ -17,6 +17,7 @@ def orf_coord(input_file, orf_map, remove_exceptions):
         coord_file - file with coordinates
     '''
 
+
     exceptions_file = '..\\sapovirus\\norovirus_exceptions.csv'
     # dictionary with annotations of ORFs
     orf_dict = read_csv(orf_map)
@@ -68,44 +69,16 @@ def orf_coord(input_file, orf_map, remove_exceptions):
                         if product not in dict_coord[rec.name].keys():
                             if product in orf_types_final:
                                 dict_coord[rec.name][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                            elif product == '1AB':
-                                if pol_count == 1:
-                                    continue
-                                else:
-                                    print(feature.location.parts)
-                                    print([int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)])
-                                    dict_coord[rec.name]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
-                                    dict_coord[rec.name]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
-                                    pol_count += 1
-                            elif product == '1AB_ORF':
-                                if pol_count == 0:
-                                    dict_coord[rec.name]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                                    pol_count += 1
-                                elif pol_count == 1:
-                                    dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                                else:
-                                    print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.id))
+                            else:
+                                print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.id))
                         
                     elif 'gene' in feature.qualifiers.keys():
                         gene = map_feature(feature.qualifiers['gene'][0], orf_dict)
                         if gene not in dict_coord[rec.name].keys():
                             if gene in orf_types_final:
                                 dict_coord[rec.name][gene] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                            elif gene == '1AB':
-                                if pol_count == 1:
-                                    continue
-                                else:
-                                    dict_coord[rec.name]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
-                                    dict_coord[rec.name]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
-                                    pol_count += 1
-                            elif gene == '1AB_ORF':
-                                if pol_count == 0:
-                                    dict_coord[rec.name]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                                    pol_count += 1
-                                elif pol_count == 1:
-                                    dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
-                                else:
-                                    print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.id))
+                            else:
+                                print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.id))
     for id in dict_coord.keys():
         # string to write to out_file
         s = id 

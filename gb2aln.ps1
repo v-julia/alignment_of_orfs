@@ -4,6 +4,7 @@ $MIN_PARCER = 0 #nt
 $MAX_PARCER = 8000 #nt
 $MIN_REMOVE_SIMILAR = '0.5' #percentage e.g. '0.5'=0.5%
 $MAX_REMOVE_SIMILAR = '100' #percentage e.g. '100'=100%
+$GAPS_IN_ROW_TO_REMOVE = '100' #if a fasta-sequence contains n gaps in a row, it will be removed
 $PATH_GEN_ALIGNMENT = 'C:\Users\orlov\Documents\GitHub\GenAlignment\'
 $PATH_RESOLVE_AMBIGUOUS = 'C:\Users\orlov\Documents\GitHub\resolve_ambiguous\'
 $COORD_FILE = 'C:\Users\orlov\Desktop\norovirus\norovirus_orf.txt'
@@ -29,7 +30,8 @@ foreach ($frame in $coord_arr)
 }
 $join_list = $join_list -join ','
 python ($PATH_GEN_ALIGNMENT + 'join_al.py') -input_list $join_list -out_name ($IN_GB_FILE.split('.')[0] + '_full_aln.fasta')
-python ($PATH_GEN_ALIGNMENT + 'remove_similar.py') -input ($IN_GB_FILE.split('.')[0] + '_full_aln.fasta') -min $MIN_REMOVE_SIMILAR -max $MAX_REMOVE_SIMILAR
+python ($PATH_GEN_ALIGNMENT + 'gap_in_row.py') -input ($IN_GB_FILE.split('.')[0] + '_full_aln.fasta') -gap_count $GAPS_IN_ROW_TO_REMOVE
+python ($PATH_GEN_ALIGNMENT + 'remove_similar.py') -input ($IN_GB_FILE.split('.')[0] + '_full_aln_' + $GAPS_IN_ROW_TO_REMOVE + 'gp.fasta') -min $MIN_REMOVE_SIMILAR -max $MAX_REMOVE_SIMILAR
 
 
 if ($args[0] -eq '-clear')
