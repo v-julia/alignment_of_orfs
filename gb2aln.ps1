@@ -32,8 +32,9 @@ $join_list = $join_list -join ','
 python ($PATH_GEN_ALIGNMENT + 'join_al.py') -input_list $join_list -out_name ($IN_GB_FILE.split('.')[0] + '_full_aln.fasta')
 python ($PATH_GEN_ALIGNMENT + 'gap_in_row.py') -input ($IN_GB_FILE.split('.')[0] + '_full_aln.fasta') -gap_count $GAPS_IN_ROW_TO_REMOVE
 python ($PATH_GEN_ALIGNMENT + 'remove_similar.py') -input ($IN_GB_FILE.split('.')[0] + '_full_aln_' + $GAPS_IN_ROW_TO_REMOVE + 'gp.fasta') -min $MIN_REMOVE_SIMILAR -max $MAX_REMOVE_SIMILAR
-
-
+#mkdir $path_dir + 'genotyped'
+#cp ($IN_GB_FILE.split('.')[0] + '_full_aln_' + $GAPS_IN_ROW_TO_REMOVE + 'gp_' + $MIN_REMOVE_SIMILAR + '.fasta') ($path_dir + 'genotyped')
+#python ($PATH_GEN_ALIGNMENT + 'genotyping.py') 
 if ($args[0] -eq '-clear')
 {
 	rm ($path_dir + 'norovirus_less_amb*')
