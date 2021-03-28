@@ -9,7 +9,7 @@ def genotyping(rep_in, tree_in, csv_in):
     The function genotypes fasta in alignments using colored tree
 
     rep_in - repository of fasta alignments
-    tree_in - colored phylogenetic tree in nwc format
+    tree_in - colored phylogenetic tree in nexus format
     csv_in - table with colors and corresponding genogroups
     '''
     tl_fl = 0  # taxlabels have began
@@ -81,9 +81,10 @@ def genotyping(rep_in, tree_in, csv_in):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-in_rep", "--input_rep_fasta", type=str,
-                        help="Input repository with files in fasta format", required=True)
+                        help="Input repository with files in fasta format. \
+                        Alignment will not be processed if its name ends with \"_genotyped.fasta\"", required=True)
     parser.add_argument("-in_tree", "--input_file_tree", type=str,
-                        help="Input colored tree in nwc format", required=True)
+                        help="Input colored tree in nexus format", required=True)
     parser.add_argument("-in_csv", "--input_file_csv", type=str,
                         help="Input table in csv format with colors in hex format and genotypes",
                         required=True)
