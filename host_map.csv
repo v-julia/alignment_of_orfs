@@ -87,6 +87,7 @@ Canine lupus familaris,dog
 Cerdocyon thous,crab-eating-fox
 Ovibos moschatus,ovibos
 Canis lupus familaris,dog
+Canine,dog
 ovine,sheep
 sheep,sheep
 Steer,bull
@@ -105,3 +106,17 @@ Homo sapiens, 24 months old femail,human
 Hystrix brachyurus,porcupine
 Bat,bat
 Culex sp. (mosquito),exclude
+[Rr]abbit,rabbit
+domestic rabbit[s]*,domestic-rabbit
+wild rabbit,wild-rabbit
+dead unvaccinated rabbit,rabbit
+Lepus europaeus,european-hare
+Lepus granatensis,iberian-hare
+Lepus timidus,mountain-hare
+Alpine Musk Deer,musk-deer
+checkered giant rabbit,giant-rabbit
+cottontail rabbit,cottontail-rabbit
+Felis domesticus,cat
+Crotalus lepidus \(Rock rattlesnake\),rattlesnake
+Callorhinus ursinus \(northern fur seal\),seal
+Zalophus californianus,sealion

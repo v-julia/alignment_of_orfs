@@ -36,7 +36,7 @@ def split_genome_corona(input_file, coord_file):
         
         if acc == 'NC' or acc == 'AC':
             acc = '_'.join([acc,seq.id.split("_")[1]])
-        print(acc)
+        #print(acc)
         for orf in orfs:
             # checks whether all orfs have known coordinates
             

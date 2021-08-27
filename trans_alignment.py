@@ -74,7 +74,7 @@ if __name__ == '__main__':
                         help="Input file", required=True)
 
     args = parser.parse_args()
-    path_to_mafft = 'D:\\Programs\\mafft-win\\'
+    path_to_mafft = 'J:\\Programs\\mafft-win\\'
     trans_file, dict_codons = translate_aln(args.input_file)
 
     time.sleep(5)
