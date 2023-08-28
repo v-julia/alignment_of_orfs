@@ -2,7 +2,7 @@ import argparse
 import os
 import re
 import sys
-
+import time
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -25,6 +25,12 @@ def translate_aln(input):
         if len(seq.seq) % 3 != 0:
             print("Len of seq in not a multiple of three for {}".format(seq.id))
         list_codons = re.findall(r'.{3}', str(seq.seq))
+        if len(seq.seq) % 3 == 2:
+            print(2)
+            list_codons.append(str(seq.seq[-2:]))
+        if len(seq.seq) % 3 == 1:
+            print(1)
+            list_codons.append(str(seq.seq[-1:]))
         dict_codons[seq.id] = list_codons
     SeqIO.write(list_translated, out_file_n, "fasta")
     
@@ -34,7 +40,10 @@ def reverse_translate_aln(input, dict_codons):
     out_file_n = os.path.splitext(input)[0] + '_rt.fasta'
     # list with SeqRecord objects
     reverse_tr_seqs = list()
-    aa_seqs = SeqIO.parse(open(input), 'fasta')
+    aa_seqs = list(SeqIO.parse(open(input), 'fasta'))
+    
+    max_length = len(aa_seqs[0].seq)*3 + 3
+    print(max_length)
     for aa_seq in aa_seqs:
         new_seq = ''
         count = 0
@@ -44,7 +53,17 @@ def reverse_translate_aln(input, dict_codons):
                 count += 1
             else:
                 new_seq += '---'
+        dif_length = len(dict_codons[aa_seq.id]) - count
+        print(dif_length)
+        if dif_length > 0:
+            print(dict_codons[aa_seq.id][-dif_length:])
+            left_seq = ''.join(dict_codons[aa_seq.id][-dif_length:])
+            new_seq += left_seq
+        if len(new_seq) < max_length:
+            print(len(new_seq), max_length)
+            new_seq = new_seq + '-' * (max_length - len(new_seq))
         new_nt_seq = SeqRecord(Seq(new_seq), id=aa_seq.id)
+        new_nt_seq.description = ''
         reverse_tr_seqs.append(new_nt_seq)
     SeqIO.write(reverse_tr_seqs, out_file_n, "fasta")
     return
@@ -55,14 +74,19 @@ if __name__ == '__main__':
                         help="Input file", required=True)
 
     args = parser.parse_args()
-
-    path_to_mafft = 'D:\\Programs\\mafft-win\\'
+    path_to_mafft = 'J:\\Programs\\mafft-win\\'
     trans_file, dict_codons = translate_aln(args.input_file)
+
+    time.sleep(5)
+
     trans_file_aln = os.path.splitext(trans_file)[0] + '_aln.fasta'
+    time.sleep(5)
+
     if sys.platform == 'win32' or sys.platform == 'cygwin':
-        os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
+        #--op 15 --ep 3
+        os.system(('{}  --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
     else:
         os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft'))
     reverse_translate_aln(trans_file_aln, dict_codons)
-    
+
     #print(dict_codons)

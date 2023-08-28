@@ -20,9 +20,13 @@ def orf_coord(input_file, orf_map):
     # dictionary with annotations of ORFs
     orf_dict = read_csv(orf_map)
     # possible ORFs
-    orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
+    #orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
+    orf_types = ['ORF1', 'ORF2', 'ORF3']
+    #orf_types = ['1A', '1B', '1AB', '2', '?', 'X']
     # list of ORFs in final table
-    orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
+    #orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
+    orf_types_final = ['ORF1', 'ORF2', 'ORF3']
+    #orf_types_final = ['1A', '1B', '2',]
 
 
     out_file_name = os.path.splitext(input_file)[0] + '_orf.txt'
@@ -37,11 +41,11 @@ def orf_coord(input_file, orf_map):
     with open(input_file) as handle:
         records = list(SeqIO.parse(handle, 'gb'))
         for rec in records:
-            dict_coord[rec.id] = {}
+            dict_coord[rec.name] = {}
             # counter for polymerase A and B genes
             # if counter==0, haven't met A gene
             pol_count = 0
-            print(rec.id)
+            print(rec.name)
             for feature in rec.features:
                 if 'codon_start' in feature.qualifiers.keys():
                     cod_start = int(feature.qualifiers['codon_start'][0]) - 1
@@ -54,47 +58,49 @@ def orf_coord(input_file, orf_map):
                         product = map_feature(feature.qualifiers['product'][0], orf_dict)
                         #print(feature.qualifiers['product'][0], product)
                         
-                        if product not in dict_coord[rec.id].keys():
+                        if product not in dict_coord[rec.name].keys():
+                            print(product)
                             if product in orf_types_final:
-                                dict_coord[rec.id][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                dict_coord[rec.name][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                             elif product == '1AB':
                                 if pol_count == 1:
                                     continue
                                 else:
                                     print(feature.location.parts)
                                     print([int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)])
-                                    dict_coord[rec.id]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
-                                    dict_coord[rec.id]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
+                                    dict_coord[rec.name]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
+                                    if len(feature.location.parts) > 1:
+                                        dict_coord[rec.name]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
                                     pol_count += 1
                             elif product == '1AB_ORF':
                                 if pol_count == 0:
-                                    dict_coord[rec.id]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                    dict_coord[rec.name]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                     pol_count += 1
                                 elif pol_count == 1:
-                                    dict_coord[rec.id]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                    dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                 else:
-                                    print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.id))
+                                    print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.name))
                         
                     elif 'gene' in feature.qualifiers.keys():
                         gene = map_feature(feature.qualifiers['gene'][0], orf_dict)
-                        if gene not in dict_coord[rec.id].keys():
+                        if gene not in dict_coord[rec.name].keys():
                             if gene in orf_types_final:
-                                dict_coord[rec.id][gene] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                dict_coord[rec.name][gene] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                             elif gene == '1AB':
                                 if pol_count == 1:
                                     continue
                                 else:
-                                    dict_coord[rec.id]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
-                                    dict_coord[rec.id]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
+                                    dict_coord[rec.name]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
+                                    dict_coord[rec.name]['1B'] = [int(feature.location.parts[1]._start) + cod_start, int(feature.location.parts[1]._end)]
                                     pol_count += 1
                             elif gene == '1AB_ORF':
                                 if pol_count == 0:
-                                    dict_coord[rec.id]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                    dict_coord[rec.name]['1A'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                     pol_count += 1
                                 elif pol_count == 1:
-                                    dict_coord[rec.id]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+                                    dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                 else:
-                                    print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.id))
+                                    print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.name))
     for id in dict_coord.keys():
         # string to write to out_file
         s = id 
@@ -118,7 +124,7 @@ def map_feature(feature, feature_map):
     return value if key is in feature_map
     '''
     for k, v in feature_map.items():
-        if feature == k:
+        if feature.lower() == k.lower():
             return v
     return feature
 
