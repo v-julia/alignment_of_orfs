@@ -28,7 +28,7 @@ def split_genome_orf(input_file, coord_file):
     for orf in orfs:
         outfile = out_temp + '_' + orf + '.fasta'
         output_files.append(outfile)
-    
+
     output_5utr_n = out_temp + '_5utr.fasta'
     output_cds_n = out_temp + '_coding.fasta'
     output_3utr_n = out_temp + '3utr.fasta'
