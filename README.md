@@ -32,7 +32,7 @@ Converts file with sequences in GenBank format to fasta format with sequence nam
 
 Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
 
-Saves output file in the directory of input file.
+Saves output file to the directory of input file.
  
 If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full countries names.
 
@@ -60,7 +60,7 @@ parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
 Calculates p-distances between sequences pairs in loop, if p-distance < min_distance and p-distance > max_distance 
 removes the sequence with higher serial number. 
 
-Saves output file with reduced sequence set in the directory of input file.
+Saves output file with reduced sequence set to the directory of input file.
 
 #### Usage
 
@@ -85,7 +85,7 @@ remove_similar.py [-h] -input INPUT_FILE -min MIN_DISTANCE -max MAX_DISTANCE
 Divides all sequences into groups by the first 5 characters in GenBank accession number. 
 Plots distribution of groups sizes. Randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
 
-Saves the resulting sequences in fasta format in the directory of input file
+Saves the resulting sequences in fasta format to the directory of input file
 
 
 #### Usage
