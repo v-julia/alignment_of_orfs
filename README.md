@@ -28,7 +28,7 @@ python GenAlignment.py
 *GenAlignment.py* uses several modules which can be used as independent scripts.
 
 ### *parser_gb.py* 
-Converts file with sequences in GenBank format to fasta format with sequence names in the following format: GenbankAccessionNumber_strain_isolate_country_collectionYear. 
+Converts file with sequences in GenBank format to fasta format with sequence names in the following format: GenbankAccessionNumber_annotation1_annotation2_..._annotationN, where annotation1, ..., annotationN are metadata from genbank qualifiers indicated in *-features* option. 
 
 Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
 
@@ -49,8 +49,8 @@ parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
                         
   -max   <int>          Maximal length of sequence. Sequences longer than max
                         length will not be included in the final dataset
-  -features   <str>     Maximal length of sequence. Sequences longer than max
-                        length will not be included in the final dataset
+  -features   <str>     string with qualifiers to retrieve from GenBank annotation,\
+                        e.g. 'country,host,collection_date
 
 
 ```
