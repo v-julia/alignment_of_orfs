@@ -34,7 +34,7 @@ Sequences which lengths are beyond or above defined threshold wll not be include
 
 Saves output file in the directory of input file.
  
-If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full contries names.
+If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full countries names.
 
 #### Usage
 
