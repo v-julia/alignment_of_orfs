@@ -22,7 +22,8 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
     COUNTRY_MAP_FILE = os.path.join(sys.path[0],"country_map.csv")
     # FEATURE_MAP_FILE = os.path.join("D:\GoogleDrive\LeishmaniaViruses\L_host_map.csv") #not developed yet
     CITY_MAP_FILE = os.path.join(sys.path[0],"city_map.csv")
-
+    
+    #EXCEPTIONS_FILE = os.path.join(sys.path[0],"exceptions.csv")
     #name of output file
     OUTPUT_FILE = '.'.join(input_file.split('.')[:-1]) + '.fasta'
 
@@ -81,7 +82,7 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
     if not os.path.exists(input_file):
         print('{filename}: No such file or directory'.format(filename=input_file))
         return
-
+    
 
     with open(input_file, "r") as in_f:
         for line in in_f:
@@ -129,6 +130,8 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
 
 
                 else:
+                    if test_accession.split('_')[0]=='NC':
+                        test_accession = 'NC-' + test_accession[3:]
                     tests.append({
                         "accession" : test_accession, 
                         "features" : test_features,
@@ -156,6 +159,18 @@ def parse_gb(input_file, min_length, max_length, field_names=[]):
         if not (MIN_ORIGIN_SIZE < len(origin) < MAX_ORIGIN_SIZE):
             #print(aaccession, len(origin))
             continue
+        '''
+        for ac in read_csv(EXCEPTIONS_FILE):
+            ac_flag = False
+            if aaccession == ac:
+                print("Record {aaccession} was skipped due to {cause}".format(aaccession = aaccession, cause = (read_csv(EXCEPTIONS_FILE))[ac]))
+                ac_flag = True
+                break
+        
+        
+        if ac_flag == True:
+            continue
+        '''
 
         #new name of entry = GB accession number + country + year
         output_name = ">%s" % aaccession

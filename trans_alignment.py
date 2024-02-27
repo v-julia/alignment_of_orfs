@@ -41,7 +41,6 @@ def reverse_translate_aln(input, dict_codons):
     # list with SeqRecord objects
     reverse_tr_seqs = list()
     aa_seqs = list(SeqIO.parse(open(input), 'fasta'))
-    
     max_length = len(aa_seqs[0].seq)*3 + 3
     print(max_length)
     for aa_seq in aa_seqs:
@@ -54,14 +53,16 @@ def reverse_translate_aln(input, dict_codons):
             else:
                 new_seq += '---'
         dif_length = len(dict_codons[aa_seq.id]) - count
-        print(dif_length)
+        #print(dif_length)
         if dif_length > 0:
-            print(dict_codons[aa_seq.id][-dif_length:])
+         #   print(dict_codons[aa_seq.id][-dif_length:])
             left_seq = ''.join(dict_codons[aa_seq.id][-dif_length:])
             new_seq += left_seq
         if len(new_seq) < max_length:
             print(len(new_seq), max_length)
             new_seq = new_seq + '-' * (max_length - len(new_seq))
+        if len(new_seq) > max_length:
+            print(len(new_seq), max_length)
         new_nt_seq = SeqRecord(Seq(new_seq), id=aa_seq.id)
         new_nt_seq.description = ''
         reverse_tr_seqs.append(new_nt_seq)
@@ -74,7 +75,9 @@ if __name__ == '__main__':
                         help="Input file", required=True)
 
     args = parser.parse_args()
+
     path_to_mafft = 'J:\\Programs\\mafft-win\\'
+
     trans_file, dict_codons = translate_aln(args.input_file)
 
     time.sleep(5)
@@ -84,7 +87,7 @@ if __name__ == '__main__':
 
     if sys.platform == 'win32' or sys.platform == 'cygwin':
         #--op 15 --ep 3
-        os.system(('{}  --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
+        os.system(('{} --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
     else:
         os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft'))
     reverse_translate_aln(trans_file_aln, dict_codons)

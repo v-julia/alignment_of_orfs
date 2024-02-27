@@ -3,6 +3,7 @@
 (^|\s|\()antelope($|\s|\)|;),antelope
 (^|\s|\()Apodemus agrarius($|\s|\)|;),mouse
 (^|\s|\()Apodemus chevrieri($|\s|\)|;),mouse
+(^|\s|\()Apodemus sylvaticus($|\s|\)|;),mouse
 (^|\s|\()Aselliscus stoliczkanus($|\s|\)|;),bat
 (^|\s|\()bat($|\s|\)|;),bat
 (^|\s|\()Bos taurus($|\s|\)|;),cow
@@ -14,6 +15,7 @@
 (^|\s|\()[Cc]amel($|\s|\)|;),camel
 (^|\s|\()[Cc]amelus dromedarius($|\s|\)|;),camel
 (^|\s|\()Canis lupus familiaris($|\s|\)|;),dog
+(^|\s|\()canine($|\s|\)|;),dog
 (^|\s|\()cat($|\s|\)|;),cat
 (^|\s|\()cattle($|\s|\)|;),cattle
 (^|\s|\()Chaerephon plicata($|\s|\)|;),bat
@@ -35,15 +37,18 @@
 (^|\s|\()giraffe($|\s|\)|;),giraffe
 (^|\s|\()Hipposideros($|\s|\)|;),bat
 (^|\s|\()Homo sapiens($|\s|\)|;),human
+(^|\s|\()Homo sapiens, enteron($|\s|\)|;),human
 (^|\s|\()Hydropotes inermis \(water deer\)($|\s|\)|;),deer
 (^|\s|\()Hypsugo savii($|\s|\)|;),bat
 (^|\s|\()Lama glama($|\s|\)|;),lama
 (^|\s|\()large pig roundworm($|\s|\)|;),roundworm
+(^|\s|\()Macaca mulatta($|\s|\)|;),rhesusmacaque
 (^|\s|\()magpie-robin($|\s|\)|;),magpie-robin
 (^|\s|\()microbat($|\s|\)|;),bat
 (^|\s|\()Miniopterus($|\s|\)|;),bat
 (^|\s|\()mink($|\s|\)|;),mink
 (^|\s|\()mouse($|\s|\)|;),mouse
+(^|\s|\()murine($|\s|\)|;),mouse
 (^|\s|\()Mus musculus($|\s|\)|;),mouse
 (^|\s|\()Mustela($|\s|\)|;),ferret
 (^|\s|\()Myotis($|\s|\)|;),bat
@@ -55,6 +60,8 @@
 (^|\s|\()Paguma larvata($|\s|\)|;),civet
 (^|\s|\()palm civet($|\s|\)|;),civet
 (^|\s|\()Pan troglodytes verus($|\s|\)|;),chimpanzee
+(^|\s|\()Pan troglodytes troglodytes($|\s|\)|;),chimpanzee
+(^|\s|\()chimp($|\s|\)|;),chimp
 (^|\s|\()Pheasant($|\s|\)|;),pheasant
 (^|\s|\()pig(let)*($|\s|\)|;),pig
 (^|\s|\()Pipistrellus($|\s|\)|;),bat
@@ -62,13 +69,17 @@
 (^|\s|\()porcine($|\s|\)|;),pig
 (^|\s|\()rat($|\s|\)|;),rat
 (^|\s|\()[Rr]attus($|\s|\)|;),rat
+(^|\s|\()Rhesus monkey($|\s|\)|;),rhesusmacaque
 (^|\s|\()Rhin[io]lophus($|\s|\)|;),bat
 (^|\s|\()Rousettus($|\s|\)|;),bat
 (^|\s|\()sambar deer($|\s|\)|;),deer
 (^|\s|\()Scotophilus kuhlii($|\s|\)|;),bat
+(^|\s|\()sewage($|\s|\)|;),sewage
+(^|\s|\()shellfish($|\s|\)|;),shellfish
 (^|\s|\()sparrow($|\s|\)|;),sparrow
+(^|\s|\()stool($|\s|\)|;),stool
 (^|\s|\()Suncus murinus($|\s|\)|;),shrew
-(^|\s|\()Sus[ _]scrofa($|\s|\)|;),pig
+(^|\s|\()Sus[ _][Ss]crofa($|\s|\)|;),pig
 (^|\s|\()swine($|\s|\)|;),pig
 (^|\s|\()Tadorna tadornoides($|\s|\)|;),shelduck
 (^|\s|\()Triaenops afer($|\s|\)|;),bat
@@ -81,6 +92,7 @@
 (^|\s|\()white-tailed deer($|\s|\)|;),deer
 (^|\s|\()wigeon($|\s|\)|;),wigeon
 (^|\s|\()yak($|\s|\)|;),yak
+(^|\s|\()Zalophus californianus \(California sea lion\)($|\s|\)|;),sealion
 Amur tiger,tiger
 Marmota himalayana,marmot
 Canine lupus familaris,dog
@@ -125,3 +137,4 @@ canine,dog
 Sichuan takin,takin
 Camelus bactrianus,camel
 Water buffalo,water-buffalo
+
