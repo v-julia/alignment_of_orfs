@@ -23,6 +23,7 @@ def split_genome_corona(input_file, coord_file):
     coord_df = pd.read_csv(coord_file, sep=",", index_col=0)
     orfs = list(coord_df.columns)
 
+
     print(coord_df)
     dict_orfs = {}
     for orf in orfs:
@@ -36,7 +37,7 @@ def split_genome_corona(input_file, coord_file):
         
         if acc == 'NC' or acc == 'AC':
             acc = '_'.join([acc,seq.id.split("_")[1]])
-        print(acc)
+        #print(acc)
         for orf in orfs:
             # checks whether all orfs have known coordinates
             
@@ -113,7 +114,7 @@ def split_genome(input_file, coord_file):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file", required=True)
+                        help="Input file in fasta-format", required=True)
     parser.add_argument("-coord", "--coord_file", type=str,
                         help="Csv-file with coordinates of 5\'UTR, coding region and 3\'UTR", required=True)
     args = parser.parse_args()

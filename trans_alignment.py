@@ -2,7 +2,7 @@ import argparse
 import os
 import re
 import sys
-
+import time
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -76,14 +76,20 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    path_to_mafft = 'C:\\Programs\\MAFFT\\'
+    path_to_mafft = 'J:\\Programs\\mafft-win\\'
+
     trans_file, dict_codons = translate_aln(args.input_file)
+
+    time.sleep(5)
+
     trans_file_aln = os.path.splitext(trans_file)[0] + '_aln.fasta'
+    time.sleep(5)
+
     if sys.platform == 'win32' or sys.platform == 'cygwin':
         #--op 15 --ep 3
         os.system(('{} --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft.bat'))
     else:
         os.system(('{} --op 15 --ep 3 --retree 1 ' + trans_file+ ' > ' + trans_file_aln).format(path_to_mafft+'mafft'))
     reverse_translate_aln(trans_file_aln, dict_codons)
-    
+
     #print(dict_codons)
