@@ -2,16 +2,13 @@ import argparse
 import copy
 import os
 from Bio import AlignIO
+from Bio import SeqIO
 
 
 def join_alignments(input_file_n_list, out_name):
     '''
     input_file_n_list - list with filenames of alignments in fasta-format to join
     '''
-
-    
-    
-    
     alignment = AlignIO.read(open(input_file_n_list[0]), "fasta") # alignment object
     alignment_all = copy.deepcopy(alignment)
 

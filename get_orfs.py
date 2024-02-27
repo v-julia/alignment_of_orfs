@@ -6,7 +6,7 @@ import re
 from Bio import SeqIO
 from parser_gb import read_csv
 
-def orf_coord(input_file, orf_map):
+def orf_coord(input_file, orf_map, remove_exceptions):
     '''
     Retrieves the coordinates of ORFs
     
@@ -17,16 +17,21 @@ def orf_coord(input_file, orf_map):
         coord_file - file with coordinates
     '''
 
+
+    exceptions_file = '..\\sapovirus\\norovirus_exceptions.csv'
     # dictionary with annotations of ORFs
     orf_dict = read_csv(orf_map)
     # possible ORFs
     #orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
-    orf_types = ['ORF1', 'ORF2', 'ORF3']
+
+    #orf_types = ['ORF1', 'ORF2', 'ORF3']
+    #orf_types = ['1A', '1AB', '1B', '2']
     #orf_types = ['1A', '1B', '1AB', '2', '?', 'X']
     # list of ORFs in final table
     #orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
-    orf_types_final = ['ORF1', 'ORF2', 'ORF3']
+    #orf_types_final = ['ORF1', 'ORF2', 'ORF3']
     #orf_types_final = ['1A', '1B', '2',]
+    orf_types_final = ['orf1', 'orf2', 'orf3']
 
 
     out_file_name = os.path.splitext(input_file)[0] + '_orf.txt'
@@ -41,6 +46,15 @@ def orf_coord(input_file, orf_map):
     with open(input_file) as handle:
         records = list(SeqIO.parse(handle, 'gb'))
         for rec in records:
+            is_exception = False
+            if remove_exceptions == True:
+                with open(exceptions_file, 'r') as exceptions_f:
+                    for line in exceptions_f:
+                        if line.strip() == rec.name:
+                            print('Record', rec.name, 'was skipped')
+                            is_exception = True
+            if is_exception == True:
+                continue
             dict_coord[rec.name] = {}
             # counter for polymerase A and B genes
             # if counter==0, haven't met A gene
@@ -56,7 +70,7 @@ def orf_coord(input_file, orf_map):
                 if feature.type == 'CDS':
                     if 'product' in feature.qualifiers.keys():
                         product = map_feature(feature.qualifiers['product'][0], orf_dict)
-                        #print(feature.qualifiers['product'][0], product)
+                        #   print(feature.qualifiers['product'][0], product)
                         
                         if product not in dict_coord[rec.name].keys():
                             print(product)
@@ -80,12 +94,18 @@ def orf_coord(input_file, orf_map):
                                     dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                 else:
                                     print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.name))
+#                            if product in orf_types_final:
+#                                dict_coord[rec.name][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+#                            else:
+#                                print('Couldn\'t find annotation \'product\' qualifier for {}'.format(rec.id))
+
                         
                     elif 'gene' in feature.qualifiers.keys():
                         gene = map_feature(feature.qualifiers['gene'][0], orf_dict)
                         if gene not in dict_coord[rec.name].keys():
                             if gene in orf_types_final:
                                 dict_coord[rec.name][gene] = [int(feature.location._start) + cod_start, int(feature.location._end)]
+
                             elif gene == '1AB':
                                 if pol_count == 1:
                                     continue
@@ -101,6 +121,10 @@ def orf_coord(input_file, orf_map):
                                     dict_coord[rec.name]['1B'] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                                 else:
                                     print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.name))
+
+#                            else:
+#                                print('Couldn\'t find annotation in \'gene\' qualifier for {}'.format(rec.id))
+
     for id in dict_coord.keys():
         # string to write to out_file
         s = id 
@@ -134,6 +158,8 @@ if __name__ == '__main__':
                         help="Input file", required=True)
     parser.add_argument("-orf_map", "--orf_map_file", type=str,
                         help="Csv-file with short codes for ORFs", required=True)
+    parser.add_argument("-r", "--remove_exceptions",
+                        help="Remove exceptions", action="store_true")
     args = parser.parse_args()
 
-    orf_coord(args.input_file, args.orf_map_file)
+    orf_coord(args.input_file, args.orf_map_file, args.remove_exceptions)
