@@ -4,7 +4,8 @@ This folder contains scripts for handling sets of biological sequences and gener
 
 ### *GenAlignment.py* 
 Generates alignment of genomic region of interest in fasta format with 
-annotated sequence names (GenbankID_strain_isolate_country_collectionYear) from file with sequences in GenBank format.
+annotated sequence names (GenbankID_strain_isolate_country_collectionYear) from file with sequences in GenBank-format.
+
 
 The input parameters should be defined in *config.txt* file located in the same directory as script:
 * path to input file with fasta sequences in GenBank format
@@ -28,11 +29,13 @@ python GenAlignment.py
 *GenAlignment.py* uses several modules which can be used as independent scripts.
 
 ### *parser_gb.py* 
+
 Converts file with sequences in GenBank format to fasta format with sequence names in the following format: GenbankAccessionNumber_annotation1_annotation2_..._annotationN, where annotation1, ..., annotationN are metadata from genbank qualifiers indicated in *-features* option. 
 
 Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
 
 Saves output file to the directory of input file.
+
  
 If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full countries names.
 
@@ -42,7 +45,9 @@ If *country_map.csv* with countries' abbreviations is in the local directory, se
 parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
                     FEATURES
 
+
   -input <str>          Path to input file in GenBank format
+
                         
   -min   <int>          Minimal length of sequence. Sequences shorter than min
                         length will not be included in the final dataset
@@ -61,6 +66,7 @@ Calculates p-distances between sequences pairs in loop, if p-distance < min_dist
 removes the sequence with higher serial number. 
 
 Saves output file with reduced sequence set to the directory of input file.
+
 
 #### Usage
 
@@ -85,7 +91,9 @@ remove_similar.py [-h] -input INPUT_FILE -min MIN_DISTANCE -max MAX_DISTANCE
 Divides all sequences into groups by the first 5 characters in GenBank accession number. 
 Plots distribution of groups sizes. Randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
 
+
 Saves the resulting sequences in fasta format to the directory of input file
+
 
 
 #### Usage
