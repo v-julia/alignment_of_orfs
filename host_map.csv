@@ -102,7 +102,7 @@ Vulpes vulpes,fox
 Ovis aries,sheep
 Capra hircus,goat
 Budorcas taxicolor tibetana,takin
-Homo sapiens, 24 months old femail,human
+Homo sapiens,human
 Hystrix brachyurus,porcupine
 Bat,bat
 Culex sp. (mosquito),exclude
@@ -120,3 +120,8 @@ Felis domesticus,cat
 Crotalus lepidus \(Rock rattlesnake\),rattlesnake
 Callorhinus ursinus \(northern fur seal\),seal
 Zalophus californianus,sealion
+Cow,cow
+canine,dog
+Sichuan takin,takin
+Camelus bactrianus,camel
+Water buffalo,water-buffalo
