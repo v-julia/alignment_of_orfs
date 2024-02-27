@@ -8,7 +8,7 @@ from Bio import SeqIO
 
 def split_genome_corona(input_file, coord_file):
     '''
-    Splits nucleotide sequences from input_file into ORFs using their coordinates from 
+    Excises nucleotide sequences from input_file into ORFs using their coordinates from 
     coord_file
 
     Input:

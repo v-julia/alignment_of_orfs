@@ -5,7 +5,7 @@ from Bio import AlignIO
 
 def get_slice(input_file, start, end):
     '''
-    Gets slice of alignment and saves it to fasta-file
+    Gets slice of alignment and saves it to fasta file
     
     input_file - name of file with alignment in fasta format
     start - start position of slice (starts from 1)

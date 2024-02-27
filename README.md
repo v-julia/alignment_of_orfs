@@ -1,48 +1,22 @@
-# GenAlignment
+# alignment_of_orfs
 
-This folder contains scripts for handling sets of biological sequences and generating alignments.
+This folder contains scripts for semi-authomatic generating of multiple sequence alignments of concatenated ORFs.
 
-### *GenAlignment.py* 
-Generates alignment of genomic region of interest in fasta format with 
-annotated sequence names (GenbankID_strain_isolate_country_collectionYear) from file with sequences in GenBank-format.
-
-
-The input parameters should be defined in *config.txt* file located in the same directory as script:
-* path to input file with fasta sequences in GenBank format
-* path to file with reference sequence
-* positions of region of interest in reference sequence
-* maximal and minimal length to retrieve from GenBank file
-* method of removing some sequences from the dataset:
-    * if p-distance between two sequences is beyond defined cut-off the one with higher serial order will be removed
-    * set of sequences is divided into groups based on the first 5 characters in GenBank ID, then if the size of groups \
-    exceeds m k% of randomly chosen sequences will be removed
-* paths to mafft and blastn programs
-
-File *country_map.csv* with countries' abbreviations located in the same directory as script can be used to replace countries names with abbreviations in sequences names.
-
-#### Usage
-
-```
-python GenAlignment.py
-```
-
-*GenAlignment.py* uses several modules which can be used as independent scripts.
 
 ### *parser_gb.py* 
 
-Converts file with sequences in GenBank format to fasta format with sequence names in the following format: GenbankAccessionNumber_annotation1_annotation2_..._annotationN, where annotation1, ..., annotationN are metadata from genbank qualifiers indicated in *-features* option. 
+Converts file with nucleotide sequences in genbank format to fasta format with sequence names in the following format: GenbankAccessionNumber_annotation1_annotation2_..._annotationN, where annotation1, ..., annotationN are metadata from genbank qualifiers indicated in *-features* option. 
 
-Sequences which lengths are beyond or above defined threshold wll not be included in ouput-file. 
 
-Saves output file to the directory of input file.
+Sequences of length  beyond or above defined threshold will not be included in output file. 
 
- 
-If *country_map.csv* with countries' abbreviations is in the local directory, sequence names will contain abbreviations rather than full countries names.
+Saves output file to the same directory as the input file.
+
 
 #### Usage
 
 ```
-parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
+parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f FEATURES
                     FEATURES
 
 
@@ -55,14 +29,79 @@ parser_gb.py [-h] -input INPUT_FILE -min MIN_LENGTH -max MAX_LENGTH -f
   -max   <int>          Maximal length of sequence. Sequences longer than max
                         length will not be included in the final dataset
   -features   <str>     string with qualifiers to retrieve from GenBank annotation,\
-                        e.g. 'country,host,collection_date
+                        e.g. 'country,host,collection_date'
 
 
 ```
 
+E.g. Command
+```
+parser_gb.py -input seqs.gb -min 1000 -max 2000 -f 'host,country'
+
+```
+will produce *seqs.fasta* with sequences of length range 1000-2000 nt. The names of sequences in fasta file will be in the following format ">GenbankAccession_host name_country".
+
+If *country_map.csv*  is in the local directory, sequence names will contain abbreviations rather than full countries names.
+
+If *host_map.csv* is in the local directory, sequence names will contain short host names inducated in *host_map.csv*.
+
+### genecds_field_distribution.py
+
+Parses file with nucleotide sequences in genbank format, prints sorted list of values found in *product* and *gene* qualifiers in CDS field
+#### Usage
+```
+genecds_field_distribution.py [-h] -input INPUT_FILE [-odir OUTPUT_DIR]
+                                     -oname OUTPUT_NAME
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -input INPUT_FILE, --input_file INPUT_FILE
+                        Input file in GenBank format
+  -odir OUTPUT_DIR, --output_dir OUTPUT_DIR
+                        Output directory to save the output file
+  -oname OUTPUT_NAME, --output_name OUTPUT_NAME
+                        Name of output file
+```
+
+### get_orfs_coord.py
+
+Retrieves the coordinates of ORFs from file with nucleotide sequences in genbank format.
+
+#### Usage
+```
+get_orfs_coord.py [-h] -input INPUT_FILE -orf_map ORF_MAP_FILE [-r]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -input INPUT_FILE, --input_file INPUT_FILE
+                        Input file
+  -orf_map ORF_MAP_FILE, --orf_map_file ORF_MAP_FILE
+                        Csv-file with short codes for ORFs
+  -r, --remove_exceptions
+                        Remove exceptions. 
+```
+
+
+### get_slice.py 
+
+Creates the slice of multiple sequence alignment in fasta format using defined coordinates and saves it to fasta file
+    
+#### Usage
+```
+get_alignment_slice.py [-h] -input INPUT_FILE -s START -e END
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -input INPUT_FILE, --input_file INPUT_FILE
+                        Input file
+  -s START, --start START
+                        Start of slice
+  -e END, --end END     End of slice
+```
+
 ### *remove_similar.py*
 
-Calculates p-distances between sequences pairs in loop, if p-distance < min_distance and p-distance > max_distance 
+Calculates p-distances between nucleotide sequences pairs in loop. If p-distance < min_distance and p-distance > max_distance 
 removes the sequence with higher serial number. 
 
 Saves output file with reduced sequence set to the directory of input file.
@@ -86,41 +125,48 @@ remove_similar.py [-h] -input INPUT_FILE -min MIN_DISTANCE -max MAX_DISTANCE
                         higher serial number will be removed from the dataset
 ```
 
-### *remove_random.py*
 
-Divides all sequences into groups by the first 5 characters in GenBank accession number. 
-Plots distribution of groups sizes. Randomly removes k% sequences in groups which size exceed m. k and m are defined by user.
+### split_genome.py
 
-
-Saves the resulting sequences in fasta format to the directory of input file
-
-
+Excises ORF sequences from sequences in *input_file* in genbank format according to coordinates in *coord_file*
 
 #### Usage
 ```
-remove_random.py [-h] -input INPUT_FILE
+split_genome.py [-h] -input INPUT_FILE -coord COORD_FILE
 
+optional arguments:
+  -h, --help            show this help message and exit
   -input INPUT_FILE, --input_file INPUT_FILE
-                        Path to input file in fasta format
+                        Input file in fasta-format
+  -coord COORD_FILE, --coord_file COORD_FILE
+                        csv-file with coordinates of ORFs retrived from CDS field of genbank file
 ```
 
+### trans_alignment.py
 
-### *cut_fasta.py*
+### gap_in_row.py
 
-Finds positions without gaps in reference sequence (the first in alignment), 
-removes the columns with gaps in reference sequence from alignment. Reference sequences is supposed to be the first in input file. 
-
-Saves the resulting alignment in fasta format in the directory of input file.
-
-
+Removes sequences with many gaps in row from file in fasta format. Output file in fasta format is saved in the save folder as input file.
 
 #### Usage
 ```
-cut_fasta.py [-h] -input INPUT_FILE
+gap_in_row.py [-h] -input INPUT_FILE -gap_count GAP_COUNT
 
+optional arguments:
+  -h, --help            show this help message and exit
   -input INPUT_FILE, --input_file INPUT_FILE
-                        Path to input alignment in fasta format
+                        Input file
+  -gap_count GAP_COUNT, --gap_count GAP_COUNT
+                        Amount of gaps in a row
 ```
+
+
+### join_al.py
+
+### create_meta.py
+
+C
+
 
 ## Requirements
 

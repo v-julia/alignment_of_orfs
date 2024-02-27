@@ -7,7 +7,9 @@ from matplotlib import pyplot as plt
 
 
 def host_distr(input_file, output_dir, out_name):
-
+    '''
+    Plots distribution of values in host qualifier in genbank file
+    '''
 
     host_dict = {}
     accession = re.compile(r"^ACCESSION\s+([a-z_A-Z0-9]+)") #accession number
