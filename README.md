@@ -165,8 +165,27 @@ optional arguments:
 
 ### create_meta.py
 
+### genotyping.py
 
+The function assigns genotype/serotype/taxon to sequences in alignments in fasta format using colored tree in nexus format.
+    Output is file in fasta format with updated sequence names.
 
+```
+genotyping.py [-h] -in_rep INPUT_REP_FASTA -in_tree INPUT_FILE_TREE
+                     -in_csv INPUT_FILE_CSV
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -in_rep INPUT_REP_FASTA, --input_rep_fasta INPUT_REP_FASTA
+                        Input repository with files in fasta format. Alignment
+                        will not be processed if its name ends with
+                        "_genotyped.fasta"
+  -in_tree INPUT_FILE_TREE, --input_file_tree INPUT_FILE_TREE
+                        Input colored tree in nexus format
+  -in_csv INPUT_FILE_CSV, --input_file_csv INPUT_FILE_CSV
+                        Input table in csv format with colors in hex format
+                        and genotypes
+```
 
 ## Requirements
 

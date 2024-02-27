@@ -6,8 +6,8 @@ from Bio import SeqIO
 
 def genotyping(rep_in, tree_in, csv_in):
     '''
-    The function genotypes fasta in alignments using colored tree
-
+    The function assigns genotype/serotype/taxon to sequences in alignments in fasta format using colored tree in nexus format.
+    Output is file in fasta format with updated sequence names.
     rep_in - repository of fasta alignments
     tree_in - colored phylogenetic tree in nexus format
     csv_in - table with colors and corresponding genogroups
