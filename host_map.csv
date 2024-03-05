@@ -93,48 +93,52 @@
 (^|\s|\()wigeon($|\s|\)|;),wigeon
 (^|\s|\()yak($|\s|\)|;),yak
 (^|\s|\()Zalophus californianus \(California sea lion\)($|\s|\)|;),sealion
-Amur tiger,tiger
-Marmota himalayana,marmot
-Canine lupus familaris,dog
-Cerdocyon thous,crab-eating-fox
-Ovibos moschatus,ovibos
-Canis lupus familaris,dog
-Canine,dog
-ovine,sheep
-sheep,sheep
-Steer,bull
-roe deer,deer
-Coracias garrulus (European roller),roller
-Zalophus californianus (California sea lion),sea-lion
-Passeriformes,exclude
-Sarcophilus harrisii,tasmanian-devil
-Eidolon helvum,bat
-grey squirrel,squirrel
-Vulpes vulpes,fox
-Ovis aries,sheep
-Capra hircus,goat
-Budorcas taxicolor tibetana,takin
-Homo sapiens,human
-Hystrix brachyurus,porcupine
-Bat,bat
-Culex sp. (mosquito),exclude
-[Rr]abbit,rabbit
-domestic rabbit[s]*,domestic-rabbit
-wild rabbit,wild-rabbit
-dead unvaccinated rabbit,rabbit
-Lepus europaeus,european-hare
-Lepus granatensis,iberian-hare
-Lepus timidus,mountain-hare
-Alpine Musk Deer,musk-deer
-checkered giant rabbit,giant-rabbit
-cottontail rabbit,cottontail-rabbit
-Felis domesticus,cat
-Crotalus lepidus \(Rock rattlesnake\),rattlesnake
-Callorhinus ursinus \(northern fur seal\),seal
-Zalophus californianus,sealion
-Cow,cow
-canine,dog
-Sichuan takin,takin
-Camelus bactrianus,camel
-Water buffalo,water-buffalo
-
+Amur tiger,tiger;
+Marmota himalayana,marmot;
+Canine lupus familaris,dog;
+Cerdocyon thous,crab-eating-fox;
+Ovibos moschatus,ovibos;
+Canis lupus familaris,dog;
+Canine,dog;
+ovine,sheep;
+sheep,sheep;
+Steer,bull;
+roe deer,deer;
+Coracias garrulus (European roller),roller;
+Zalophus californianus (California sea lion),sea-lion;
+Passeriformes,exclude;
+Sarcophilus harrisii,tasmanian-devil;
+Eidolon helvum,bat;
+grey squirrel,squirrel;
+Vulpes vulpes,fox;
+Ovis aries,sheep;
+Capra hircus,goat;
+Budorcas taxicolor tibetana,takin;
+Homo sapiens,human;
+Hystrix brachyurus,porcupine;
+Bat,bat;
+Culex sp. (mosquito),exclude;
+[Rr]abbit,rabbit;
+domestic rabbit[s]*,domestic-rabbit;
+wild rabbit,wild-rabbit;
+dead unvaccinated rabbit,rabbit;
+Lepus europaeus,european-hare;
+Lepus granatensis,iberian-hare;
+Lepus timidus,mountain-hare;
+Alpine Musk Deer,musk-deer;
+checkered giant rabbit,giant-rabbit;
+cottontail rabbit,cottontail-rabbit;
+Felis domesticus,cat;
+Crotalus lepidus \(Rock rattlesnake\),rattlesnake;
+Callorhinus ursinus \(northern fur seal\),seal;
+Zalophus californianus,sealion;
+Cow,cow;
+canine,dog;
+Sichuan takin,takin;
+Camelus bactrianus,camel;
+Water buffalo,water-buffalo;
+\bBubablus[-._\s]*bubalis\b,water-buffalo;
+\b[Ss]mall\s+ruminant(?:s)?\b,sheep;
+\b[Ww]ild\s+gazelle\b,gazelle;
+Buffalo,buffalo;
+Cattle, cattle;
