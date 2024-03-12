@@ -11,16 +11,24 @@ def orf_coord(input_file, orf_map, remove_exceptions):
     Retrieves the coordinates of ORFs
     
     Input:
-        input_file - file with nucleotide sequences in genbank-format
-        orf_map - csv file annotation of orfs and their codes
+        input_file - file with nucleotide sequences in genbank format
+        orf_map - file with orfs names and their codes in csv format
     Output:
-        coord_file - file with coordinates
+        coord_file - file with coordinates in csv format
     '''
 
 
-    exceptions_file = '..\\sapovirus\\norovirus_exceptions.csv'
+    #exceptions_file = '..\\sapovirus\\norovirus_exceptions.csv'
     # dictionary with annotations of ORFs
     orf_dict = read_csv(orf_map)
+    orf_types = list(set(orf_dict.values()))
+    orf_types.sort()
+    orf_types_final = orf_types.copy()
+    if ('1AB' in orf_types):
+        orf_types_final.remove('1AB')
+    if ('1AB_ORF' in orf_types):
+        orf_types_final.remove('1AB_ORF')
+
     # possible ORFs
     #orf_types = ['1A', '1B', '1AB', '1AB_ORF', 'S', 'E', 'M', 'N']
 
@@ -31,11 +39,11 @@ def orf_coord(input_file, orf_map, remove_exceptions):
     #orf_types_final = ['1A', '1B', 'S', 'E', 'M', 'N']
     #orf_types_final = ['ORF1', 'ORF2', 'ORF3']
     #orf_types_final = ['1A', '1B', '2',]
-    orf_types_final = ['orf1', 'orf2', 'orf3']
+    #orf_types_final = ['orf1', 'orf2', 'orf3']
 
 
     out_file_name = os.path.splitext(input_file)[0] + '_orf.txt'
-    print(out_file_name)
+    print('File with coordinates of ORFs: {}'.format(out_file_name))
     out_file = open(out_file_name, 'w')
 
     out_file.write('id' + ',' + ','.join(orf_types_final) + '\n')
@@ -57,14 +65,13 @@ def orf_coord(input_file, orf_map, remove_exceptions):
                 continue
             dict_coord[rec.name] = {}
             # counter for polymerase A and B genes
-            # if counter==0, haven't met A gene
+            # if pol_count==0, haven't met A gene
             pol_count = 0
-            print(rec.name)
             for feature in rec.features:
                 if 'codon_start' in feature.qualifiers.keys():
                     cod_start = int(feature.qualifiers['codon_start'][0]) - 1
                     if cod_start<0:
-                        print('here')
+                        print('Codon start is less than zero. Check {}'.format(rec.name))
                 else:
                     cod_start = 0
                 if feature.type == 'CDS':
@@ -73,13 +80,14 @@ def orf_coord(input_file, orf_map, remove_exceptions):
                         #   print(feature.qualifiers['product'][0], product)
                         
                         if product not in dict_coord[rec.name].keys():
-                            print(product)
+                            #print(product)
                             if product in orf_types_final:
                                 dict_coord[rec.name][product] = [int(feature.location._start) + cod_start, int(feature.location._end)]
                             elif product == '1AB':
                                 if pol_count == 1:
                                     continue
                                 else:
+                                    print('Encountered joined locations in {} entry'.format(rec.name))
                                     print(feature.location.parts)
                                     print([int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)])
                                     dict_coord[rec.name]['1A'] = [int(feature.location.parts[0]._start) + cod_start, int(feature.location.parts[0]._end)]
@@ -155,11 +163,11 @@ def map_feature(feature, feature_map):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-input", "--input_file", type=str,
-                        help="Input file", required=True)
+                        help="Input file in genbank format", required=True)
     parser.add_argument("-orf_map", "--orf_map_file", type=str,
                         help="Csv-file with short codes for ORFs", required=True)
     parser.add_argument("-r", "--remove_exceptions",
-                        help="Remove exceptions", action="store_true")
+                        help="Removes sequences listed in file. Only for noroviruses yet", action="store_true")
     args = parser.parse_args()
 
     orf_coord(args.input_file, args.orf_map_file, args.remove_exceptions)

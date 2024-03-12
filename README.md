@@ -74,11 +74,11 @@ get_orfs_coord.py [-h] -input INPUT_FILE -orf_map ORF_MAP_FILE [-r]
 optional arguments:
   -h, --help            show this help message and exit
   -input INPUT_FILE, --input_file INPUT_FILE
-                        Input file
+                        Input file in genbank format
   -orf_map ORF_MAP_FILE, --orf_map_file ORF_MAP_FILE
                         Csv-file with short codes for ORFs
   -r, --remove_exceptions
-                        Remove exceptions. 
+                        Removes sequences listed in file. Only for noroviruses yet
 ```
 
 

@@ -204,7 +204,6 @@ def read_csv(file_name, strip_it=True):
                                 fieldnames=["base", "new"])
         result = {}
         for row in reader:
-
             result[strip(row["base"])] = strip(row["new"])
         csvfile.close()
         return result
