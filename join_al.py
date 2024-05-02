@@ -24,7 +24,7 @@ def join_alignments(input_file_n_list, out_name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-input_list", "--input_list", type=str,
-                        help="List with names of input file", required=True)
+                        help="List with names of input files in fasta format separated by comma", required=True)
     parser.add_argument("-out_name", "--out_name", type=str,
                         help="Name of output file", required=True)
 
