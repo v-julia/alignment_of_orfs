@@ -10,10 +10,14 @@ def genotyping(rep_in, tree_in, csv_in):
     Output is file in fasta format with updated sequence names.
     rep_in - repository of fasta alignments
     tree_in - colored phylogenetic tree in nexus format
-    csv_in - table with colors and corresponding genogroups
+    csv_in - comma separated table with colors and corresponding genogroups/serotype/taxon
+        Example:
+        #3333ff,GI
+        #00ccff,GII
+    
     '''
     tl_fl = 0  # taxlabels have began
-    names_dict = {}  # names_dict[seq_name] = colour
+    names_dict = {}  # names_dict[seq_name] = serotype
 
     def csv_reader(csv_file_input, input_str):
         '''
@@ -36,7 +40,7 @@ def genotyping(rep_in, tree_in, csv_in):
                 if base.match(input_str):
                     output_str = line["new"].strip()
             return output_str
-
+    # parse tree file and find lines with taxa name and hex color
     with open(tree_in, "r") as tree_f:
         for line in tree_f:
             if re.match('\ttaxlabels', line):
@@ -46,12 +50,15 @@ def genotyping(rep_in, tree_in, csv_in):
                 if line == ';\n':
                     tl_fl = 0
                 else:
+                    # search hex code of color
                     color = re.search(r'#[0-9a-z]+', line)
                     if color:
                         color = color.group()
+                        # taxa name
                         seq_name = re.search(r"[A-Za-z0-9_\-\/.]+", line).group()
                         seq_name = seq_name[:6].replace('_', '-') + seq_name[6:]
                         seq_name = seq_name.split('_')[0]
+                        # seq_name - taxon
                         names_dict[seq_name] = csv_reader(csv_in, color)
 
     files = os.listdir(rep_in)
